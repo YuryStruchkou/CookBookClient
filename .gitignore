@@ -44,3 +44,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/.vs/slnx.sqlite-journal
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
+/.vs/CookBookClient/v15/.suo
+/.vs/config/applicationhost.config
