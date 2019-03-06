@@ -63,7 +63,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "CookBookClient:build",
-            "port": 44342,
+            "port": 44341,
             "sslKey": "/node_modules/browser-sync/lib/server/certs/server.key",
             "sslCert": "/node_modules/browser-sync/lib/server/certs/server.crt",
             "ssl": true
