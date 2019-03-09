@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
+      { path: 'account', loadChildren: "./account/account.module#AccountModule" },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: '404', component: NotFoundComponent },
       { path: '**', redirectTo: '/404', pathMatch: 'full' }
