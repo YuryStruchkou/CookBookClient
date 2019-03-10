@@ -1,12 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
+
+import { AppConfigService } from './shared/services/app-config.service';
 import { HttpClientModule } from '@angular/common/http';
+
+export function initializeApp(appConfig: AppConfigService) {
+  return () => appConfig.load();
+}
 
 @NgModule({
   declarations: [
@@ -26,7 +32,10 @@ import { HttpClientModule } from '@angular/common/http';
       { path: '**', redirectTo: '/404', pathMatch: 'full' }
     ])
   ],
-  providers: [],
+  providers: [AppConfigService,
+    { provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AppConfigService], multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

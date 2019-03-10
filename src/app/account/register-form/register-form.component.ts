@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CustomValidators } from './../../shared/utils/custom-validators';
+import { AccountService } from './../../shared/services/account.service';
 
 @Component({
     selector: 'app-register-form',
@@ -10,9 +11,10 @@ import { CustomValidators } from './../../shared/utils/custom-validators';
 export class RegisterFormComponent implements OnInit {
 
     private registerForm: FormGroup;
-    submitted = false;
 
-    constructor(private builder: FormBuilder) { }
+    private errorText: string;
+
+    constructor(private builder: FormBuilder, private accountService: AccountService) { }
 
     ngOnInit() {
         this.registerForm = this.builder.group({
@@ -27,8 +29,13 @@ export class RegisterFormComponent implements OnInit {
     get f() { return this.registerForm.controls; }
 
     onSubmit() {
-        this.submitted = true;
-        console.log(this.f.password.errors);
+        let model = { UserName: this.f.userName.value, email: this.f.email.value, 
+            Password: this.f.password.value, ConfirmPassword: this.f.confirmPassword.value };
+        this.accountService.register(model).subscribe(res => {
+            console.log(res);
+            this.errorText = "";
+        }, errors => {
+            this.errorText = errors.error.errors[0];
+        });
     }
-
 }
