@@ -7,7 +7,7 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
     private currentUserSubject: BehaviorSubject<User>;
-    private currentUser: Observable<User>;
+    public currentUser: Observable<User>;
     private static readonly CURRENT_USER_KEY = 'currentUser';
 
     public get currentUserValue(): User {
