@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CustomValidators } from './../../shared/utils/custom-validators';
 import { AccountService } from './../../shared/services/account.service';
+import { RegisterResponse } from './../../shared/models/register-response.model';
 
 @Component({
     selector: 'app-register-form',
@@ -14,7 +17,11 @@ export class RegisterFormComponent implements OnInit {
 
     private errorText: string;
 
-    constructor(private builder: FormBuilder, private accountService: AccountService) { }
+    constructor(private builder: FormBuilder, private router: Router, private toastr: ToastrService, private accountService: AccountService) {
+        if (accountService.currentUserValue) {
+            this.router.navigate(['/']);
+        }
+     }
 
     ngOnInit() {
         this.registerForm = this.builder.group({
@@ -29,13 +36,17 @@ export class RegisterFormComponent implements OnInit {
     get f() { return this.registerForm.controls; }
 
     onSubmit() {
-        let model = { UserName: this.f.userName.value, email: this.f.email.value, 
-            Password: this.f.password.value, ConfirmPassword: this.f.confirmPassword.value };
+        let model = { UserName: this.registerForm.controls.userName.value, email: this.registerForm.controls.email.value, 
+            Password: this.registerForm.controls.password.value, ConfirmPassword: this.registerForm.controls.confirmPassword.value };
         this.accountService.register(model).subscribe(res => {
-            console.log(res);
-            this.errorText = "";
+            this.handleSuccessfulRegistration(res as RegisterResponse);
         }, errors => {
             this.errorText = errors.error.errors[0];
         });
+    }
+
+    handleSuccessfulRegistration(response: RegisterResponse) {
+        this.toastr.success(`The confirmation email was sent to your email address ${response.email}.`, 'Registration successful.');
+        this.router.navigate(['/account/login']);
     }
 }
