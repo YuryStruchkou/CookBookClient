@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CustomValidators } from './../../shared/utils/custom-validators';
 import { AccountService } from './../../shared/services/account.service';
+import { AuthService } from './../../shared/services/auth.service';
 import { RegisterResponse } from './../../shared/models/register-response.model';
 
 @Component({
@@ -17,8 +18,12 @@ export class RegisterFormComponent implements OnInit {
 
     private errorText: string;
 
-    constructor(private builder: FormBuilder, private router: Router, private toastr: ToastrService, private accountService: AccountService) {
-        if (accountService.currentUserValue) {
+    constructor(private builder: FormBuilder,
+         private router: Router,
+         private toastr: ToastrService,
+         private accountService: AccountService,
+         private authService: AuthService) {
+        if (authService.currentUserValue) {
             this.router.navigate(['/']);
         }
      }
