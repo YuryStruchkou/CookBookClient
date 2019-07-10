@@ -3,5 +3,5 @@ export class RegisterResponse {
     public userName: string;
     public isMuted: boolean;
     public userStatusId: number;
-    public avatarUrl: null;
+    public avatarUrl: string;
 }
