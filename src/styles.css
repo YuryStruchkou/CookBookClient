@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+.invalid-caption {
+    font-size: 16px;
+}
+
+label.required::after {
+    content: "*";
+    color: #ff0000
+}
+
+#toast-container > div {
+    opacity: 1;
+}
+
+#toast-container > .toast-success {
+    background-image: none;
+    background-color: #000000;
+    color: #ffffff;
+}

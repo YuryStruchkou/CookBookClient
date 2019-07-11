@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-md navbar-light bg-dark">
+    <a class="navbar-brand text-light" routerLink="/home" href="#">Cook Book</a>
+    <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ml-auto">
+            <ng-container *ngIf="currentUser else notLoggedIn">
+                <li class="nav-item">
+                    <a class="nav-link text-light font-weight-bold px-3" href="#">Hello, {{currentUser?.userName}}!</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light font-weight-bold px-3" href="#"
+                        (click)="authService.logout()">Logout</a>
+                </li>
+            </ng-container>
+            <ng-template #notLoggedIn>
+                <li class="nav-item">
+                    <a class="nav-link text-light font-weight-bold px-3" routerLink="/account/register"
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light font-weight-bold px-3" routerLink="/account/login"
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+                </li>
+            </ng-template>
+        </ul>
+    </div>
+</nav>

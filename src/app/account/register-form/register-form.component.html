@@ -1,0 +1,103 @@
+<form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2>Registration</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label class="required" for="userName">Username</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="text" formControlName="userName" class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.userName.dirty || f.userName.touched) && f.userName.errors }"
+                        placeholder="Username" autofocus>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div *ngIf="(f.userName.dirty || f.userName.touched) && f.userName.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.userName.errors.required" class="invalid-caption">User name is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label class="required" for="email">Email</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="text" formControlName="email" class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.email.dirty || f.email.touched) && f.email.errors }"
+                        placeholder="you@example.com" autofocus>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div *ngIf="(f.email.dirty || f.email.touched) && f.email.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.email.errors.required" class="invalid-caption">Email is required.</div>
+                <div *ngIf="f.email.errors.email" class="invalid-caption">Email is invalid.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label class="required" for="password">Password</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group has-danger">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="password" formControlName="password" class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.password.dirty || f.password.touched) && f.password.errors }"
+                        placeholder="Password">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div *ngIf="(f.password.dirty || f.password.touched) && f.password.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.password.errors.required" class="invalid-caption">Password is required.</div>
+                <div *ngIf="f.password.errors.invalid" class="invalid-caption">
+                    Password must contain at least six characters, one big letter, one small letter, 
+                    one digit and one special character.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label class="required" for="confirmPassword">Confirm password</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="password" formControlName="confirmPassword" class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.password.dirty || f.password.touched) && f.confirmPassword.errors }" placeholder="Password">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div *ngIf="(f.password.dirty || f.password.touched) && f.confirmPassword.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.confirmPassword.errors.mismatch" class="invalid-caption">
+                    Passwords do not match.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid">Submit</button>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 invalid-feedback d-block">
+        <div class="invalid-caption">{{errorText}}</div>
+    </div>
+</div>
