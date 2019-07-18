@@ -34,6 +34,7 @@ export function initializeApp(appConfig: AppConfigService) {
         RouterModule.forRoot([
             { path: 'home', component: HomeComponent },
             { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+            { path: 'recipe', loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule) },
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: '404', component: NotFoundComponent },
             { path: '**', redirectTo: '/404', pathMatch: 'full' }

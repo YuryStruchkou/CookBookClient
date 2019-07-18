@@ -22,7 +22,7 @@ export class RegisterFormComponent implements OnInit {
          private router: Router,
          private toastr: ToastrService,
          private accountService: AccountService,
-         private authService: AuthService) {
+         authService: AuthService) {
         if (authService.currentUserValue) {
             this.router.navigate(['/']);
         }

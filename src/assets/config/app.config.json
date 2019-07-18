@@ -1,6 +1,7 @@
 {
     "apiEndpoints": {
         "register": "api/account/register",
-        "login": "api/account/login"
+        "login": "api/account/login",
+        "recipe": "api/recipe/"
     }
 }
