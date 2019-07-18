@@ -9,13 +9,7 @@ import { User } from '../models/user.model';
 })
 export class RepositoryService {
 
-    private currentUser: User;
-
-    constructor(private http: HttpClient, private envUrl: EnvironmentUrlService, private authService: AuthService) {
-        this.authService.currentUser.subscribe(user => {
-            this.currentUser = user;
-        });
-    }
+    constructor(private http: HttpClient, private envUrl: EnvironmentUrlService, private authService: AuthService) { }
 
     public get(route: string) {
         return this.http.get(this.createFullRoute(route), this.generateHeaders());
@@ -43,9 +37,11 @@ export class RepositoryService {
 
     private generateHeaders() {
         let headers = new HttpHeaders();
-        headers.append('Content-Type', 'application/json');
-        let jwtToken = this.currentUser.jwtToken;
-        headers.append('Authorization', `Bearer ${jwtToken}`);
+        headers = headers.append('Content-Type', 'application/json');
+        if (this.authService.currentUserValue != null){
+            let jwtToken = this.authService.currentUserValue.jwtToken;
+            headers = headers.append('Authorization', `Bearer ${jwtToken}`);
+        }
         return { headers }
     }
 }

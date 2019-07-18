@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
+import { Recipe } from 'src/app/shared/models/recipe.model';
 
 @Component({
     selector: 'app-create-update-recipe-form',
@@ -38,13 +39,13 @@ export class CreateUpdateRecipeFormComponent implements OnInit {
             Tags: this.tags
         };
         this.recipeService.createRecipe(model).subscribe(res => {
-            this.handleSuccessfulRecipeCreation(res);
+            this.handleSuccessfulRecipeCreation(res as Recipe);
         }, errors => {
             this.errorText = errors.error.errors[0];
         });
     }
 
-    private handleSuccessfulRecipeCreation(response: any){
-        this.errorText = response;
+    private handleSuccessfulRecipeCreation(response: Recipe){
+        this.errorText = JSON.stringify(response);
     }
 }

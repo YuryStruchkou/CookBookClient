@@ -19,7 +19,7 @@ export class RecipeService {
     }
 
     public updateRecipe(body: any, id: number) {
-        return this.repository.post(this.recipeEndpoint + id, body);
+        return this.repository.put(this.recipeEndpoint + id, body);
     }
 
     public markRecipeAsDeleted(id: number) {
