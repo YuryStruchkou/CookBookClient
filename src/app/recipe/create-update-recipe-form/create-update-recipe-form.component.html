@@ -34,12 +34,13 @@
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <input type="text" formControlName="description" class="form-control"
                         [ngClass]="{ 'is-invalid': (f.description.dirty || f.description.touched) && f.description.errors }"
-                        placeholder="A short description" autofocus>
+                        placeholder="A short description">
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div *ngIf="(f.description.dirty || f.description.touched) && f.description.errors" class="invalid-feedback d-block">
+            <div *ngIf="(f.description.dirty || f.description.touched) && f.description.errors"
+                class="invalid-feedback d-block">
                 <div *ngIf="f.description.errors.required" class="invalid-caption">Description is required.</div>
             </div>
         </div>
@@ -51,9 +52,10 @@
         <div class="col-md-6">
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <input type="text" formControlName="content" class="form-control"
+                    <textarea rows="10" formControlName="content" class="form-control"
                         [ngClass]="{ 'is-invalid': (f.content.dirty || f.content.touched) && f.content.errors }"
                         placeholder="Your recipe content">
+                    </textarea>
                 </div>
             </div>
         </div>
