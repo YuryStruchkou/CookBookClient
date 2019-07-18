@@ -19,14 +19,14 @@ export class RegisterFormComponent implements OnInit {
     private errorText: string;
 
     constructor(private builder: FormBuilder,
-         private router: Router,
-         private toastr: ToastrService,
-         private accountService: AccountService,
-         authService: AuthService) {
+        private router: Router,
+        private toastr: ToastrService,
+        private accountService: AccountService,
+        authService: AuthService) {
         if (authService.currentUserValue) {
             this.router.navigate(['/']);
         }
-     }
+    }
 
     ngOnInit() {
         this.registerForm = this.builder.group({
@@ -34,15 +34,17 @@ export class RegisterFormComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, CustomValidators.isValidPassword]]
         });
-        this.registerForm.addControl('confirmPassword', 
+        this.registerForm.addControl('confirmPassword',
             new FormControl('', [CustomValidators.passwordMismatch(this.registerForm.controls.password)]));
     }
 
     get f() { return this.registerForm.controls; }
 
     onSubmit() {
-        let model = { UserName: this.registerForm.controls.userName.value, email: this.registerForm.controls.email.value, 
-            Password: this.registerForm.controls.password.value, ConfirmPassword: this.registerForm.controls.confirmPassword.value };
+        let model = {
+            UserName: this.registerForm.controls.userName.value, email: this.registerForm.controls.email.value,
+            Password: this.registerForm.controls.password.value, ConfirmPassword: this.registerForm.controls.confirmPassword.value
+        };
         this.accountService.register(model).subscribe(res => {
             this.handleSuccessfulRegistration(res as RegisterResponse);
         }, errors => {
