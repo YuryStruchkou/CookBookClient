@@ -71,9 +71,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <input type="text" formControlName="tags" class="form-control" placeholder="Tags">
-                </div>
+                <app-tags-input [selectable]="true" [removable]="true" (onChanged)="tagsChanged($event)"></app-tags-input>
             </div>
         </div>
     </div>

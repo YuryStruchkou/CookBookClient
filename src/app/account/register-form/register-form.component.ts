@@ -38,7 +38,7 @@ export class RegisterFormComponent implements OnInit {
             new FormControl('', [CustomValidators.passwordMismatch(this.registerForm.controls.password)]));
     }
 
-    get f() { return this.registerForm.controls; }
+    private get f() { return this.registerForm.controls; }
 
     onSubmit() {
         let model = {

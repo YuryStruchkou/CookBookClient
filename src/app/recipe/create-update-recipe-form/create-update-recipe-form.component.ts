@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RecipeService } from 'src/app/shared/services/recipe.service';
 
 @Component({
     selector: 'app-create-update-recipe-form',
@@ -9,21 +10,41 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class CreateUpdateRecipeFormComponent implements OnInit {
 
     private createUpdateRecipeForm: FormGroup;
+    private tags: string[];
+    private errorText: string;
 
-    constructor(private builder: FormBuilder) { }
+    constructor(private builder: FormBuilder,
+        private recipeService: RecipeService) { }
 
     ngOnInit() {
         this.createUpdateRecipeForm = this.builder.group({
             name: ['', Validators.required],
             description: ['', Validators.required],
-            content: ['', Validators.required],
-            tags: ['']
+            content: ['', Validators.required]
         });
     }
 
-    get f() { return this.createUpdateRecipeForm.controls }
+    private get f() { return this.createUpdateRecipeForm.controls }
+
+    private tagsChanged(tags: string[]) {
+        this.tags = tags;
+    }
 
     onSubmit() {
+        const model = {
+            Name: this.createUpdateRecipeForm.controls.name.value,
+            Description: this.createUpdateRecipeForm.controls.description.value,
+            Content: this.createUpdateRecipeForm.controls.content.value,
+            Tags: this.tags
+        };
+        this.recipeService.createRecipe(model).subscribe(res => {
+            this.handleSuccessfulRecipeCreation(res);
+        }, errors => {
+            this.errorText = errors.error.errors[0];
+        });
+    }
 
+    private handleSuccessfulRecipeCreation(response: any){
+        this.errorText = response;
     }
 }
