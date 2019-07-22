@@ -1,9 +1,9 @@
-export enum HttpStatusCodes {
+const enum HttpStatusCodes {
     OK = 200,
     NO_CONTENT = 204,
 
     BAD_REQUEST = 400,
-    UNAUTHORIZED_STATUS_CODE = 401,
+    UNAUTHORIZED = 401,
     NOT_FOUND = 404,
     CONFLICT = 409,
 

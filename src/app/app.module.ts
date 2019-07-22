@@ -10,7 +10,8 @@ import { MenuComponent } from './menu/menu.component';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 
 import { AppConfigService } from './shared/services/app-config.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 export function initializeApp(appConfig: AppConfigService) {
     return () => appConfig.load();
@@ -44,8 +45,16 @@ export function initializeApp(appConfig: AppConfigService) {
         {
             provide: APP_INITIALIZER,
             useFactory: initializeApp,
-            deps: [AppConfigService], multi: true
-        }],
+            deps: [AppConfigService],
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            deps: [AppConfigService],
+            multi: true
+        },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

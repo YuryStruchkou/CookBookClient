@@ -9,7 +9,6 @@ import { RepositoryService } from './repository.service';
 export class AccountService {
     private registerEndpoint = AppConfigService.settings.apiEndpoints.register;
     private loginEndpoint = AppConfigService.settings.apiEndpoints.login;
-    private refreshTokenEndpoint = AppConfigService.settings.apiEndpoints.refreshToken;
     
     constructor(private repository: RepositoryService) { }
 
@@ -19,9 +18,5 @@ export class AccountService {
 
     public login(body: any) {
         return this.repository.post(this.loginEndpoint, body, true);
-    }
-
-    public refresh() {
-        return this.repository.post(this.refreshTokenEndpoint, null, true);
     }
 }
