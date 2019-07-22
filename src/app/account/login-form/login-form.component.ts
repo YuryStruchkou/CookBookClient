@@ -16,11 +16,11 @@ export class LoginFormComponent implements OnInit {
 
     private errorText: string;
 
-    constructor(private builder: FormBuilder, 
-         private router: Router, 
-         private authService: AuthService, 
-         private accountService: AccountService) {
-        if (authService.currentUserValue) {
+    constructor(private builder: FormBuilder,
+        private router: Router,
+        private authService: AuthService,
+        private accountService: AccountService) {
+        if (authService.isLoggedIn) {
             this.router.navigate(['/']);
         }
     }
@@ -34,11 +34,18 @@ export class LoginFormComponent implements OnInit {
 
     onSubmit() {
         let model = { UserNameOrEmail: this.loginForm.controls.userName.value, Password: this.loginForm.controls.password.value };
-        this.accountService.login(model).subscribe (res => { 
-            this.authService.addUserToLocalStorage(res as User);
-            this.router.navigate(['/']);
-        }, errors => {
-            this.errorText = errors.error.errors[0];
-        })
+        this.accountService.login(model).subscribe({
+            next: this.handleSuccessfulLogin.bind(this),
+            error: this.handleError.bind(this)
+        });
+    }
+
+    private handleSuccessfulLogin(res: Object) {
+        this.authService.addUserToLocalStorage(res as User);
+        this.router.navigate(['/']);
+    }
+
+    private handleError(errors: any) {
+        this.errorText = errors.error.errors[0];
     }
 }

@@ -23,7 +23,7 @@ export class RegisterFormComponent implements OnInit {
         private toastr: ToastrService,
         private accountService: AccountService,
         authService: AuthService) {
-        if (authService.currentUserValue) {
+        if (authService.isLoggedIn) {
             this.router.navigate(['/']);
         }
     }
@@ -45,15 +45,19 @@ export class RegisterFormComponent implements OnInit {
             UserName: this.registerForm.controls.userName.value, email: this.registerForm.controls.email.value,
             Password: this.registerForm.controls.password.value, ConfirmPassword: this.registerForm.controls.confirmPassword.value
         };
-        this.accountService.register(model).subscribe(res => {
-            this.handleSuccessfulRegistration(res as RegisterResponse);
-        }, errors => {
-            this.errorText = errors.error.errors[0];
+        this.accountService.register(model).subscribe({
+            next: this.handleSuccessfulRegistration.bind(this),
+            error: this.handleError.bind(this)
         });
     }
 
-    handleSuccessfulRegistration(response: RegisterResponse) {
+    private handleSuccessfulRegistration(res: Object) {
+        let response = res as RegisterResponse;
         this.toastr.success(`The confirmation email was sent to your email address ${response.email}.`, 'Registration successful.');
         this.router.navigate(['/account/login']);
+    }
+
+    private handleError(errors: any) {
+        this.errorText = errors.error.errors[0];
     }
 }

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateUpdateRecipeFormComponent } from './create-update-recipe-form/create-update-recipe-form.component';
 import { CommonComponentsModule } from '../common-components/common-components.module';
+import { AuthGuard } from '../shared/guards/auth.guard';
 
 @NgModule({
   declarations: [CreateUpdateRecipeFormComponent],
@@ -12,7 +13,7 @@ import { CommonComponentsModule } from '../common-components/common-components.m
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([
-      { path: 'new', component: CreateUpdateRecipeFormComponent }
+      { path: 'new', component: CreateUpdateRecipeFormComponent, canActivate: [AuthGuard] }
     ]),
     CommonComponentsModule
   ]

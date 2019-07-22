@@ -5,7 +5,7 @@
     </button>
     <div class="collapse navbar-collapse" id="nav">
         <ul class="navbar-nav ml-auto">
-            <ng-container *ngIf="currentUser else notLoggedIn">
+            <ng-container *ngIf="authService.isLoggedIn else notLoggedIn">
                 <li class="nav-item">
                     <a class="nav-link text-light font-weight-bold px-3" href="#">Hello, {{currentUser?.userName}}!</a>
                 </li>

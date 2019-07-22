@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { Recipe } from 'src/app/shared/models/recipe.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-create-update-recipe-form',
@@ -15,7 +17,8 @@ export class CreateUpdateRecipeFormComponent implements OnInit {
     private errorText: string;
 
     constructor(private builder: FormBuilder,
-        private recipeService: RecipeService) { }
+        private recipeService: RecipeService) {
+    }
 
     ngOnInit() {
         this.createUpdateRecipeForm = this.builder.group({
@@ -38,14 +41,18 @@ export class CreateUpdateRecipeFormComponent implements OnInit {
             Content: this.createUpdateRecipeForm.controls.content.value,
             Tags: this.tags
         };
-        this.recipeService.createRecipe(model).subscribe(res => {
-            this.handleSuccessfulRecipeCreation(res as Recipe);
-        }, errors => {
-            this.errorText = errors.error.errors[0];
+        this.recipeService.createRecipe(model).subscribe({
+            next: this.handleSuccessfulRecipeCreation.bind(this),
+            error: this.handleError.bind(this)
         });
     }
 
-    private handleSuccessfulRecipeCreation(response: Recipe){
+    private handleSuccessfulRecipeCreation(res: Object) {
+        const response = res as Recipe;
         this.errorText = JSON.stringify(response);
+    }
+
+    private handleError(errors: any) {
+        this.errorText = errors.error.errors[0];
     }
 }

@@ -9,12 +9,17 @@ export class AuthService {
     public currentUser: BehaviorSubject<User>;
     private static readonly CURRENT_USER_KEY = 'currentUser';
 
-    public get currentUserValue(): User {
-        return this.currentUser.value;
-    }
-
     constructor() {
         this.currentUser = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(AuthService.CURRENT_USER_KEY)));
+    }
+
+    public get isLoggedIn() {
+        const userSaved = this.currentUserValue && new Date(this.currentUserValue.expiryDate).getTime() > new Date().getTime(); 
+        return userSaved;
+    }
+
+    public get currentUserValue() {
+        return this.currentUser.value;
     }
 
     public addUserToLocalStorage(user: User) {
