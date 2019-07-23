@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler) {
         return next.handle(request).pipe(tap(() => {},                
                 error => {
-                    if (error instanceof HttpErrorResponse || error.status !== HttpStatusCodes.UNAUTHORIZED) {
+                    if (!(error instanceof HttpErrorResponse) || error.status !== HttpStatusCodes.UNAUTHORIZED) {
                         return;
                     }
                     this.authService.redirectUrl = this.router.url;

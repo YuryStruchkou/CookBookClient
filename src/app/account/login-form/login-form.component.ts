@@ -41,8 +41,10 @@ export class LoginFormComponent implements OnInit {
     }
 
     private handleSuccessfulLogin(res: Object) {
+        if (this.authService.redirectUrl == null) {
+            this.authService.redirectUrl = '/';
+        }
         this.authService.addUserToLocalStorage(res as User);
-        this.router.navigate(['/']);
     }
 
     private handleError(errors: any) {

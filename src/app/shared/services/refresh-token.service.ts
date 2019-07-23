@@ -3,6 +3,7 @@ import { User } from '../models/user.model';
 import { RepositoryService } from './repository.service';
 import { AuthService } from './auth.service';
 import { AppConfigService } from './app-config.service';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,9 @@ export class RefreshTokenService {
     }
 
     refresh() {
+        if (this.currentUser == null) {
+            return throwError('User not set.');
+        }
         return this.repository.post(this.refreshTokenEndpoint, { UserName: this.currentUser.userName }, true);
     }
 }

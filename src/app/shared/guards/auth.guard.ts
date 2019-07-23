@@ -5,7 +5,6 @@ import { RefreshTokenService } from '../services/refresh-token.service';
 import { User } from '../models/user.model';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -19,7 +18,7 @@ export class AuthGuard implements CanActivate {
         if (this.authService.isLoggedIn) {
             return true;
         }
-        this.authService.redirectUrl = this.router.url;
+        this.authService.redirectUrl = state.url;
         return this.refreshTokenService.refresh().pipe(map(res => {
             this.authService.addUserToLocalStorage(res as User);
             return true;
