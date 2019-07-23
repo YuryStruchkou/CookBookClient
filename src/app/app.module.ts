@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -12,6 +12,8 @@ import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { AppConfigService } from './shared/services/app-config.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { RefreshTokenService } from './shared/services/refresh-token.service';
+import { AuthService } from './shared/services/auth.service';
 
 export function initializeApp(appConfig: AppConfigService) {
     return () => appConfig.load();
@@ -51,7 +53,7 @@ export function initializeApp(appConfig: AppConfigService) {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
-            deps: [AppConfigService],
+            deps: [RefreshTokenService, Router, AuthService],
             multi: true
         },
     ],

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { Recipe } from 'src/app/shared/models/recipe.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-create-update-recipe-form',

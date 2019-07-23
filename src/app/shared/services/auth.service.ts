@@ -16,11 +16,14 @@ export class AuthService {
     }
 
     public get isLoggedIn() {
-        const userSaved = this.currentUserValue && new Date(this.currentUserValue.expiryDate).getTime() > new Date().getTime(); 
+        let user = this.currentUserValue;
+        const userSaved = user && new Date(user.expiryDate).getTime() > new Date().getTime(); 
         return userSaved;
     }
 
     public get currentUserValue() {
+        const user = JSON.parse(localStorage.getItem(AuthService.CURRENT_USER_KEY));
+        this.currentUser.next(user);
         return this.currentUser.value;
     }
 
