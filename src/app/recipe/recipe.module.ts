@@ -5,15 +5,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateUpdateRecipeFormComponent } from './create-update-recipe-form/create-update-recipe-form.component';
 import { CommonComponentsModule } from '../common-components/common-components.module';
 import { AuthGuard } from '../shared/guards/auth.guard';
+import { RecipeMainComponent } from './recipe-main/recipe-main.component';
 
 @NgModule({
-  declarations: [CreateUpdateRecipeFormComponent],
+  declarations: [CreateUpdateRecipeFormComponent, RecipeMainComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([
-      { path: 'new', component: CreateUpdateRecipeFormComponent, canActivate: [AuthGuard] }
+      { path: 'new', component: CreateUpdateRecipeFormComponent, canActivate: [AuthGuard] },
+      { path: '', component: RecipeMainComponent }
     ]),
     CommonComponentsModule
   ]

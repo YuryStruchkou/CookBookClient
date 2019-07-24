@@ -14,7 +14,7 @@ export class AppConfigService {
     }
 
     load() {
-        const jsonFile = `./../../assets/config/app.config.json`;
+        const jsonFile = `./../../assets/config/app.config.json?timestamp=${Date.now()}`;
         return new Promise<void>((resolve, reject) => {
             this.http.get(jsonFile).toPromise().then((response: IAppConfig) => {
                 AppConfigService.settings = <IAppConfig>response;
