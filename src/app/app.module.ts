@@ -12,8 +12,8 @@ import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { AppConfigService } from './shared/services/app-config.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
-import { RefreshTokenService } from './shared/services/refresh-token.service';
 import { AuthService } from './shared/services/auth.service';
+import { AccountService } from './shared/services/account.service';
 
 export function initializeApp(appConfig: AppConfigService) {
     return () => appConfig.load();
@@ -53,7 +53,7 @@ export function initializeApp(appConfig: AppConfigService) {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
-            deps: [RefreshTokenService, Router, AuthService],
+            deps: [AccountService, Router, AuthService],
             multi: true
         },
     ],

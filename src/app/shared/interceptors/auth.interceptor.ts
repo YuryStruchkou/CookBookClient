@@ -4,14 +4,14 @@ import { tap, switchMap, catchError } from 'rxjs/operators';
 import { AppConfigService } from '../services/app-config.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { RefreshTokenService } from '../services/refresh-token.service';
 import { User } from '../models/user.model';
+import { AccountService } from '../services/account.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     private refreshTokenEndpoint = AppConfigService.settings.apiEndpoints.refreshToken;
 
-    constructor(private refreshTokenService: RefreshTokenService, private router: Router, private authService: AuthService) { }
+    constructor(private accountService: AccountService, private router: Router, private authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler) {
         return next.handle(request).pipe(catchError(error => {
@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     private refresh() {
-        return this.refreshTokenService.refresh().pipe(tap(res => this.authService.addUserToLocalStorage(res as User)));
+        return this.accountService.refresh().pipe(tap(res => this.authService.addUserToLocalStorage(res as User)));
     }
 
     private updateAuthHeader(request) {

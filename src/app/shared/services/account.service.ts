@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AppConfigService } from './app-config.service';
 import { RepositoryService } from './repository.service';
+import { AuthService } from './auth.service';
+import { throwError } from 'rxjs';
 
 
 @Injectable({
@@ -9,8 +11,9 @@ import { RepositoryService } from './repository.service';
 export class AccountService {
     private registerEndpoint = AppConfigService.settings.apiEndpoints.register;
     private loginEndpoint = AppConfigService.settings.apiEndpoints.login;
+    private refreshTokenEndpoint = AppConfigService.settings.apiEndpoints.refreshToken;
     
-    constructor(private repository: RepositoryService) { }
+    constructor(private repository: RepositoryService, private authService: AuthService) { }
 
     public register(body: any) {
         return this.repository.post(this.registerEndpoint, body);
@@ -18,5 +21,12 @@ export class AccountService {
 
     public login(body: any) {
         return this.repository.post(this.loginEndpoint, body, true);
+    }
+
+    public refresh() {
+        if (this.authService.currentUserValue == null) {
+            return throwError('User not set.');
+        }
+        return this.repository.post(this.refreshTokenEndpoint, { UserName: this.authService.currentUserValue.userName }, true);
     }
 }
