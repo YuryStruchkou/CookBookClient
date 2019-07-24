@@ -23,6 +23,7 @@ export class AuthGuard implements CanActivate {
             this.authService.addUserToLocalStorage(res as User);
             return true;
         }), catchError(error => {
+            this.accountService.logout();
             return of(this.router.parseUrl("/account/login"));
         }));
     }

@@ -20,6 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 }
                 if (request.url.endsWith(this.refreshTokenEndpoint)) {
                     this.authService.redirectUrl = this.router.url;
+                    this.accountService.logout();
                     this.navigateToLogin();
                 }
                 else {
