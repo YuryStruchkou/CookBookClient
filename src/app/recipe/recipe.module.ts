@@ -15,7 +15,7 @@ import { RecipeMainComponent } from './recipe-main/recipe-main.component';
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'new', component: CreateUpdateRecipeFormComponent, canActivate: [AuthGuard] },
-      { path: '', component: RecipeMainComponent }
+      { path: ':id', component: RecipeMainComponent }
     ]),
     CommonComponentsModule
   ]

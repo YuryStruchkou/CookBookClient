@@ -4,6 +4,7 @@ import { TagsInputComponent } from './tags-input/tags-input.component';
 import { MatChipsModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [TagsInputComponent],
@@ -11,7 +12,8 @@ import { MatFormFieldModule } from '@angular/material';
     CommonModule,
     MatChipsModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    RouterModule
   ],
   exports: [TagsInputComponent]
 })

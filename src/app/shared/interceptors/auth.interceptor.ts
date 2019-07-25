@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/user.model';
 import { AccountService } from '../services/account.service';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -16,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler) {
         return next.handle(request).pipe(catchError(error => {
                 if (!(error instanceof HttpErrorResponse) || error.status !== HttpStatusCodes.UNAUTHORIZED) {
-                    return;
+                    throwError(error);
                 }
                 if (request.url.endsWith(this.refreshTokenEndpoint)) {
                     this.authService.redirectUrl = this.router.url;

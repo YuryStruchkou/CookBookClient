@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
@@ -7,12 +7,20 @@ import { MatChipInputEvent } from '@angular/material/chips';
     templateUrl: './tags-input.component.html',
     styleUrls: ['./tags-input.component.css']
 })
-export class TagsInputComponent {
+export class TagsInputComponent implements OnInit {
     @Input() private selectable: boolean;
     @Input() private removable: boolean;
+    @Input() private initialTags: string[] = [];
+    @Input() private readonly: boolean = false;
+    @Input() private routerLinkPath: string;
+    @Input() private queryParamName: string;
     @Output() onChanged = new EventEmitter<string[]>();
     private readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-    private tags: string[] = [];
+    private tags: string[];
+
+    ngOnInit() {
+        this.tags = this.initialTags;
+    }
 
     add(event: MatChipInputEvent) {
         const input = event.input;
