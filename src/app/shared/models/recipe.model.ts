@@ -11,4 +11,5 @@ export class Recipe {
     totalVotes: number;
     averageVote: number;
     userVote: number;
+    userName: string;
 }

@@ -3,6 +3,8 @@ import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
     selector: 'app-recipe-main',
@@ -11,8 +13,16 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class RecipeMainComponent implements OnInit {
     private recipe = new BehaviorSubject<Recipe>(null);
+    private currentUser: User;
 
-    constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router) { }
+    constructor(private recipeService: RecipeService,
+        private authService: AuthService,
+        private route: ActivatedRoute,
+        private router: Router) {
+        this.authService.currentUser.subscribe(user => {
+            this.currentUser = user;
+        });
+    }
 
     private get recipeValue() {
         return this.recipe.value;

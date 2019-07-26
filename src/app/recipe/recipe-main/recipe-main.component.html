@@ -1,11 +1,19 @@
 <h1 class="my-4">{{recipeValue?.name}}</h1>
+<p>Created by: <strong>{{recipeValue?.userName}}</strong> on <em>{{recipeValue?.creationDate | date:'MMMM d, y, H:mm:ss' }}</em>. 
+    <span *ngIf="recipeValue?.editDate">Edited on <em>{{recipeValue?.editDate | date:'MMMM d, y, H:mm:ss'}}</em>.</span></p>
 <div class="row">
     <div class="col-md-8">
-        <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+        <img class="img-fluid" src="http://placehold.it/750x400" alt="">
     </div>
     <div class="col-md-4">
         <h3 class="my-3">Recipe Description</h3>
         <p>{{recipeValue?.description}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <a *ngIf="currentUser?.userName === recipeValue?.userName" href="#" class="btn btn-primary btn-lg my-3" role="button">Update</a>
+        <a *ngIf="currentUser?.userName === recipeValue?.userName" href="#" class="btn btn-danger btn-lg my-3" role="button">Delete</a>
     </div>
 </div>
 
