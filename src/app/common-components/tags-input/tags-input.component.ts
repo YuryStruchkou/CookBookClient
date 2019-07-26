@@ -10,7 +10,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 export class TagsInputComponent implements OnInit {
     @Input() private selectable: boolean;
     @Input() private removable: boolean;
-    @Input() private initialTags: string[] = [];
+    @Input() private initialTags: string[];
     @Input() private readonly: boolean = false;
     @Input() private routerLinkPath: string;
     @Input() private queryParamName: string;
@@ -19,7 +19,7 @@ export class TagsInputComponent implements OnInit {
     private tags: string[];
 
     ngOnInit() {
-        this.tags = this.initialTags;
+        this.tags = this.initialTags || [];
     }
 
     add(event: MatChipInputEvent) {

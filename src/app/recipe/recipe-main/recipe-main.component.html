@@ -12,8 +12,12 @@
 </div>
 <div class="row">
     <div class="col-md-8">
-        <a *ngIf="currentUser?.userName === recipeValue?.userName" href="#" class="btn btn-primary btn-lg my-3" role="button">Update</a>
-        <a *ngIf="currentUser?.userName === recipeValue?.userName" href="#" class="btn btn-danger btn-lg my-3" role="button">Delete</a>
+        <a *ngIf="currentUser?.userName === recipeValue?.userName" [routerLink]="['update']" class="btn btn-primary btn-lg my-3" role="button">
+            Update
+        </a>
+        <a *ngIf="currentUser?.userName === recipeValue?.userName" href="#" class="btn btn-danger btn-lg my-3" role="button">
+            Delete
+        </a>
     </div>
 </div>
 
