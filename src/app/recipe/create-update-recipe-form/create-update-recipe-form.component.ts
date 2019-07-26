@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-create-update-recipe-form',
@@ -12,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CreateUpdateRecipeFormComponent implements OnInit {
     private createUpdateRecipeForm: FormGroup;
-    private recipe = new BehaviorSubject<Recipe>(null);
+    private recipe: Recipe;
     private tags: string[];
     private errorText: string;
     private isUpdate: boolean;
@@ -31,31 +30,17 @@ export class CreateUpdateRecipeFormComponent implements OnInit {
         this.activeRoute.data.subscribe(data => {
             this.isUpdate = data.update;
             if (this.isUpdate) {
-                this.populateInitialValues();
+                this.setInitialValues();
             }
         });
     }
 
-    private populateInitialValues() {
-        this.activeRoute.params.subscribe(params => {
-            const id = params["id"];
-            this.initRecipe(id);
-        });
-    }
-
-    private initRecipe(id: number) {
-        this.recipeService.getRecipe(id).subscribe({
-            next: (recipe => {
-                this.recipe.next(recipe);
-                this.createUpdateRecipeForm.patchValue({
-                    name: recipe.name,
-                    description: recipe.description,
-                    content: recipe.content
-                });
-            }).bind(this),
-            error: (err => {
-                this.router.navigate(["/404"]);
-            }).bind(this)
+    private setInitialValues() {
+        this.recipe = this.activeRoute.snapshot.data.recipe;
+        this.createUpdateRecipeForm.patchValue({
+            name: this.recipe.userName,
+            description: this.recipe.description,
+            content: this.recipe.content
         });
     }
 
@@ -72,7 +57,7 @@ export class CreateUpdateRecipeFormComponent implements OnInit {
             Content: this.createUpdateRecipeForm.controls.content.value,
             Tags: this.tags
         };
-        const request = this.isUpdate ? this.recipeService.updateRecipe(model, this.recipe.value.id) : this.recipeService.createRecipe(model);
+        const request = this.isUpdate ? this.recipeService.updateRecipe(model, this.recipe.id) : this.recipeService.createRecipe(model);
         request.subscribe({
             next: this.handleSuccess.bind(this),
             error: this.handleError.bind(this)

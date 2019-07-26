@@ -1,30 +1,30 @@
-<h1 class="my-4">{{recipeValue?.name}}</h1>
-<p>Created by: <strong>{{recipeValue?.userName}}</strong> on <em>{{recipeValue?.creationDate | date:'MMMM d, y, H:mm:ss' }}</em>. 
-    <span *ngIf="recipeValue?.editDate">Edited on <em>{{recipeValue?.editDate | date:'MMMM d, y, H:mm:ss'}}</em>.</span></p>
+<h1 class="my-4">{{recipe?.name}}</h1>
+<p>Created by: <strong>{{recipe?.userName}}</strong> on <em>{{recipe?.creationDate | date:'MMMM d, y, H:mm:ss' }}</em>. 
+    <span *ngIf="recipe?.editDate">Edited on <em>{{recipe?.editDate | date:'MMMM d, y, H:mm:ss'}}</em>.</span></p>
 <div class="row">
     <div class="col-md-8">
         <img class="img-fluid" src="http://placehold.it/750x400" alt="">
     </div>
     <div class="col-md-4">
         <h3 class="my-3">Recipe Description</h3>
-        <p>{{recipeValue?.description}}</p>
+        <p>{{recipe?.description}}</p>
     </div>
 </div>
 <div class="row">
     <div class="col-md-8">
-        <a *ngIf="currentUser?.userName === recipeValue?.userName" [routerLink]="['update']" class="btn btn-primary btn-lg my-3" role="button">
+        <a *ngIf="currentUser?.userName === recipe?.userName" [routerLink]="['update']" class="btn btn-primary btn-lg my-3" role="button">
             Update
         </a>
-        <a *ngIf="currentUser?.userName === recipeValue?.userName" href="#" class="btn btn-danger btn-lg my-3" role="button">
+        <a *ngIf="currentUser?.userName === recipe?.userName" href="#" class="btn btn-danger btn-lg my-3" role="button">
             Delete
         </a>
     </div>
 </div>
 
 <h3 class="my-4">Details</h3>
-<p>{{recipeValue?.content}}</p>
+<p>{{recipe?.content}}</p>
 
 <h3 class="my-4">Tags</h3>
-<app-tags-input *ngIf="(recipe | async) as r" [readonly]="true" [selectable]="true" [removable]="false"
-    [initialTags]="r.tags" [routerLinkPath]="'/search'" [queryParamName]="searchTerm">
+<app-tags-input [readonly]="true" [selectable]="true" [removable]="false"
+    [initialTags]="recipe?.tags" [routerLinkPath]="'/search'" [queryParamName]="searchTerm">
 </app-tags-input>
