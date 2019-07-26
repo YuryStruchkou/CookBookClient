@@ -17,7 +17,7 @@ import { RecipeDetailResolver } from '../shared/resolvers/recipe-detail.resolver
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'new', component: CreateUpdateRecipeFormComponent, canActivate: [AuthGuard] },
-      { path: ':id', component: RecipeMainComponent, resolve: { recipe: RecipeDetailResolver } },
+      { path: ':id', component: RecipeMainComponent, resolve: { recipe: RecipeDetailResolver }, runGuardsAndResolvers: 'always' },
       { path: ':id/update', component: CreateUpdateRecipeFormComponent, canActivate: [AuthGuard], data: { 'update': true }, 
         resolve: { recipe: RecipeDetailResolver }}
     ]),

@@ -5,9 +5,10 @@ import { MatChipsModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
-  declarations: [TagsInputComponent],
+  declarations: [TagsInputComponent, ConfirmModalComponent],
   imports: [
     CommonModule,
     MatChipsModule,
@@ -15,6 +16,6 @@ import { RouterModule } from '@angular/router';
     MatFormFieldModule,
     RouterModule
   ],
-  exports: [TagsInputComponent]
+  exports: [TagsInputComponent, ConfirmModalComponent]
 })
 export class CommonComponentsModule { }

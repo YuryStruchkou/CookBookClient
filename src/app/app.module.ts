@@ -41,7 +41,7 @@ export function initializeApp(appConfig: AppConfigService) {
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: '404', component: NotFoundComponent },
             { path: '**', redirectTo: '/404', pathMatch: 'full' }
-        ])
+        ], {onSameUrlNavigation: 'reload'})
     ],
     providers: [AppConfigService,
         {
