@@ -1,5 +1,5 @@
 <h1 class="my-4">{{recipe?.name}}</h1>
-<p>Created by: <strong>{{recipe?.userName}}</strong> on <em>{{recipe?.creationDate | date:'MMMM d, y, H:mm:ss' }}</em>. 
+<p>Created by: <strong>{{recipe?.userName}}</strong> on <em>{{recipe?.creationDate | date:'MMMM d, y, H:mm:ss' }}</em>.
     <span *ngIf="recipe?.editDate">Edited on <em>{{recipe?.editDate | date:'MMMM d, y, H:mm:ss'}}</em>.</span></p>
 <div class="row">
     <div class="col-md-8">
@@ -11,15 +11,28 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-8">
-        <a *ngIf="currentUser?.userName === recipe?.userName" [routerLink]="['update']" class="btn btn-primary btn-lg my-3" role="button">
+    <div class="col-md-4">
+        <a *ngIf="currentUser?.userName === recipe?.userName" [routerLink]="['update']"
+            class="btn btn-primary btn-lg my-3" role="button">
             Update
         </a>
-        <button *ngIf="currentUser?.userName === recipe?.userName" data-toggle="modal" data-target="#confirmModal" class="btn btn-danger btn-lg my-3" 
-            type="button">
+        <button *ngIf="currentUser?.userName === recipe?.userName" data-toggle="modal" data-target="#confirmModal"
+            class="btn btn-danger btn-lg my-3" type="button">
             Delete
         </button>
-        <app-confirm-modal [question]="'Are you sure you want to delete this recipe?'" (confirmed)="deleteRecipe()"></app-confirm-modal>
+        <app-confirm-modal [question]="'Are you sure you want to delete this recipe?'" (confirmed)="deleteRecipe()">
+        </app-confirm-modal>
+    </div>
+    <div class="d-flex col-md-4">
+        <div class="ml-auto my-3">
+            <ngb-rating [(rate)]="recipe.userVote" [max]="5">
+                <ng-template let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                        <span class="part" [style.width.%]="fill">&#9733;</span>&#9733;
+                    </span>
+                </ng-template>
+            </ngb-rating>
+        </div>
     </div>
 </div>
 
@@ -27,6 +40,6 @@
 <p>{{recipe?.content}}</p>
 
 <h3 class="my-4">Tags</h3>
-<app-tags-input [readonly]="true" [selectable]="true" [removable]="false"
-    [initialTags]="recipe?.tags" [routerLinkPath]="'/search'" [queryParamName]="searchTerm">
+<app-tags-input [readonly]="true" [selectable]="true" [removable]="false" [initialTags]="recipe?.tags"
+    [routerLinkPath]="'/search'" [queryParamName]="searchTerm">
 </app-tags-input>
