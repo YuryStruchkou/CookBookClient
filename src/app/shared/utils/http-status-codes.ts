@@ -1,4 +1,6 @@
 const enum HttpStatusCodes {
+    CONNECTION_REFUSED = 0,
+
     OK = 200,
     NO_CONTENT = 204,
 

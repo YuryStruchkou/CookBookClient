@@ -14,6 +14,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { AuthService } from './shared/services/auth.service';
 import { AccountService } from './shared/services/account.service';
+import { RefusedConnectionInterceptor } from './shared/interceptors/refused-connection.interceptor';
+import { ServiceUnavailableComponent } from './error-pages/service-unavailable/service-unavailable.component';
 
 export function initializeApp(appConfig: AppConfigService) {
     return () => appConfig.load();
@@ -24,7 +26,8 @@ export function initializeApp(appConfig: AppConfigService) {
         AppComponent,
         HomeComponent,
         MenuComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        ServiceUnavailableComponent
     ],
     imports: [
         BrowserModule,
@@ -40,6 +43,7 @@ export function initializeApp(appConfig: AppConfigService) {
             { path: 'recipe', loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule) },
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: '404', component: NotFoundComponent },
+            { path: '503', component: ServiceUnavailableComponent },
             { path: '**', redirectTo: '/404', pathMatch: 'full' }
         ], {onSameUrlNavigation: 'reload'})
     ],
@@ -48,6 +52,12 @@ export function initializeApp(appConfig: AppConfigService) {
             provide: APP_INITIALIZER,
             useFactory: initializeApp,
             deps: [AppConfigService],
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RefusedConnectionInterceptor,
+            deps: [Router],
             multi: true
         },
         {
