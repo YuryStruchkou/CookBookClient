@@ -30,4 +30,8 @@ export class RecipeService {
     public addVote(id: number, voteValue: number) {
         return this.repository.post(this.recipeEndpoint + id + this.voteSuffix, undefined, { params: { value: voteValue } });
     }
+
+    public getCurrentUserVote(id: number) {
+        return this.repository.get(this.recipeEndpoint + id + this.voteSuffix);
+    }
 }
