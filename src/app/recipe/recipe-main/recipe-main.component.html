@@ -12,12 +12,12 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <a *ngIf="currentUser?.userName === recipe?.userName" [routerLink]="['update']"
+        <a *ngIf="currentUser != null && currentUser.userName === recipe?.userName" [routerLink]="['update']"
             class="btn btn-primary btn-lg my-3" role="button">
             Update
         </a>
-        <button *ngIf="currentUser?.userName === recipe?.userName" data-toggle="modal" data-target="#confirmModal"
-            class="btn btn-danger btn-lg my-3" type="button">
+        <button *ngIf="currentUser != null && currentUser.userName === recipe?.userName" data-toggle="modal"
+            data-target="#confirmModal" class="btn btn-danger btn-lg my-3" type="button">
             Delete
         </button>
         <app-confirm-modal [question]="'Are you sure you want to delete this recipe?'" (confirmed)="deleteRecipe()">
@@ -25,13 +25,35 @@
     </div>
     <div class="d-flex col-md-4">
         <div class="ml-auto my-3">
-            <ngb-rating [(rate)]="recipe.userVote" [max]="5">
-                <ng-template let-fill="fill">
-                    <span class="star" [class.full]="fill === 100">
-                        <span class="part" [style.width.%]="fill">&#9733;</span>&#9733;
-                    </span>
-                </ng-template>
-            </ngb-rating>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>{{recipe.recipeVoteData.averageVote.toFixed(2)}}</strong> from
+                    <strong>{{recipe.recipeVoteData.totalVotes}}</strong> votes.
+                </div>
+                <div class="col-md-6">
+                    <ngb-rating [rate]="recipe.recipeVoteData.averageVote" [max]="5" [readonly]="'true'">
+                        <ng-template let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                                <span class="part" [style.width.%]="fill">&#9733;</span>&#9733;
+                            </span>
+                        </ng-template>
+                    </ngb-rating>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Your vote is <strong>{{recipe.recipeVoteData.userVote}}.</strong>
+                </div>
+                <div class="col-md-6">
+                    <ngb-rating [rate]="recipe.recipeVoteData.userVote" (rateChange)="vote($event)" [max]="5">
+                        <ng-template let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                                <span class="part" [style.width.%]="fill">&#9733;</span>&#9733;
+                            </span>
+                        </ng-template>
+                    </ngb-rating>
+                </div>
+            </div>
         </div>
     </div>
 </div>

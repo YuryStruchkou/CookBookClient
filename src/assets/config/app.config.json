@@ -4,6 +4,7 @@
         "login": "api/account/login",
         "refreshToken": "api/account/refresh",
         "logout": "api/account/logout",
-        "recipe": "api/recipe/"
+        "recipe": "api/recipe/",
+        "voteSuffix": "/vote"
     }
 }
