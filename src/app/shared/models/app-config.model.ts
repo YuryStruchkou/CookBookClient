@@ -5,6 +5,7 @@ export interface IAppConfig {
         refreshToken: string,
         logout: string,
         recipe: string,
-        voteSuffix: string
+        voteSuffix: string,
+        userProfile: string
     }
 }
