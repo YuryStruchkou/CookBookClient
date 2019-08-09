@@ -41,6 +41,7 @@ export function initializeApp(appConfig: AppConfigService) {
             { path: 'home', component: HomeComponent },
             { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
             { path: 'recipe', loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule) },
+            { path: 'user', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule) },
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: '404', component: NotFoundComponent },
             { path: '503', component: ServiceUnavailableComponent },
