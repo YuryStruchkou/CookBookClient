@@ -1,6 +1,8 @@
 <h1 class="my-4">{{recipe?.name}}</h1>
-<p>Created by: <strong>{{recipe?.userName}}</strong> on <em>{{recipe?.creationDate | date:'MMMM d, y, H:mm:ss' }}</em>.
-    <span *ngIf="recipe?.editDate">Edited on <em>{{recipe?.editDate | date:'MMMM d, y, H:mm:ss'}}</em>.</span></p>
+<p>Created by: <strong><a [routerLink]="['/user/' + recipe?.userId]">{{recipe?.userName}}</a></strong> on 
+    <em>{{recipe?.creationDate | date:'MMMM d, y, H:mm:ss' }}</em>.
+    <span *ngIf="recipe?.editDate">Edited on <em>{{recipe?.editDate | date:'MMMM d, y, H:mm:ss'}}</em>.</span>
+</p>
 <div class="row">
     <div class="col-md-8">
         <img class="img-fluid" src="http://placehold.it/750x400" alt="">
