@@ -6,6 +6,8 @@ export interface IAppConfig {
         logout: string,
         recipe: string,
         voteSuffix: string,
+        popularRecipesSuffix: string,
+        recentRecipesSuffix: string,
         userProfile: string
     }
 }

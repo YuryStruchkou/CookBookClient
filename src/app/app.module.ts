@@ -16,6 +16,8 @@ import { AuthService } from './shared/services/auth.service';
 import { AccountService } from './shared/services/account.service';
 import { RefusedConnectionInterceptor } from './shared/interceptors/refused-connection.interceptor';
 import { ServiceUnavailableComponent } from './error-pages/service-unavailable/service-unavailable.component';
+import { CommonComponentsModule } from './common-components/common-components.module';
+import { PopularRecentRecipesResolver } from './shared/resolvers/popular-recent-recipes.resolver';
 
 export function initializeApp(appConfig: AppConfigService) {
     return () => appConfig.load();
@@ -37,8 +39,10 @@ export function initializeApp(appConfig: AppConfigService) {
             timeOut: 3000,
             preventDuplicates: true,
         }),
+        CommonComponentsModule,
         RouterModule.forRoot([
-            { path: 'home', component: HomeComponent },
+            { path: 'home', component: HomeComponent, resolve: { recipes: PopularRecentRecipesResolver },
+             runGuardsAndResolvers: 'always' },
             { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
             { path: 'recipe', loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule) },
             { path: 'user', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule) },
@@ -49,6 +53,7 @@ export function initializeApp(appConfig: AppConfigService) {
         ], {onSameUrlNavigation: 'reload'})
     ],
     providers: [AppConfigService,
+        PopularRecentRecipesResolver,
         {
             provide: APP_INITIALIZER,
             useFactory: initializeApp,
