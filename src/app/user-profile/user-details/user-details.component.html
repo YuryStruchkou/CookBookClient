@@ -1,0 +1,39 @@
+<h1 class="my-4">{{user?.userName}}</h1>
+<div class="row">
+    <div class="col-md-8">
+        <img class="img-fluid" src="http://placehold.it/750x400" alt="">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a *ngIf="currentUser != null && currentUser.userName === user?.userName" [routerLink]="['update']"
+            class="btn btn-primary btn-lg my-3" role="button">
+            Update
+        </a>
+    </div>
+    <div class="col-md-4">
+        <div class="ml-auto">
+            <div class="row d-flex">
+                <div class="col-md-2 my-3 offset-md-4">
+                    <strong>{{user.averageVote.toFixed(2)}}</strong>
+                </div>
+                <div class="col-md-6">
+                    <ngb-rating [rate]="user.averageVote" [max]="5" [readonly]="'true'">
+                        <ng-template let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                                <span class="part" [style.width.%]="fill">&#9733;</span>&#9733;
+                            </span>
+                        </ng-template>
+                    </ngb-rating>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h2 class="my-4">Recipes</h2>
+<div class="row" >
+    <div *ngFor="let recipe of user?.recipes" class="col-md-3">
+        <app-card [image]="'http://placehold.it/250x200'" [route]="'/recipe/' + recipe.id"
+             [averageVote]="recipe.averageVote" [title]="recipe.name" [description]="recipe.description"></app-card>
+    </div>
+</div>

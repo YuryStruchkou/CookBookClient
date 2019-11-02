@@ -5,6 +5,7 @@
         "refreshToken": "api/account/refresh",
         "logout": "api/account/logout",
         "recipe": "api/recipe/",
-        "voteSuffix": "/vote"
+        "voteSuffix": "/vote",
+        "userProfile": "api/user/"
     }
 }

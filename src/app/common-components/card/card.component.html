@@ -1,0 +1,15 @@
+<div class="card">
+    <a [routerLink]="route"><img src={{image}} class="card-img-top" alt={{title}}></a>
+    <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+        <p class="card-text">{{description}}</p>
+        <ngb-rating [rate]="averageVote" [max]="5" [readonly]="'true'">
+            <ng-template let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                    <span class="part" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+            </ng-template>
+        </ngb-rating>
+        <a [routerLink]="route" class="btn btn-primary">Details</a>
+    </div>
+</div>
