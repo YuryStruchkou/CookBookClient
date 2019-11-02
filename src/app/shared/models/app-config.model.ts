@@ -8,6 +8,7 @@ export interface IAppConfig {
         voteSuffix: string,
         popularRecipesSuffix: string,
         recentRecipesSuffix: string,
-        userProfile: string
+        userProfile: string,
+        search: string
     }
 }

@@ -8,6 +8,7 @@
         "voteSuffix": "/vote",
         "popularRecipesSuffix": "/popular",
         "recentRecipesSuffix": "/recent",
-        "userProfile": "api/user/"
+        "userProfile": "api/user/",
+        "search": "api/search"
     }
 }
