@@ -1,0 +1,32 @@
+<h1 class="my-4">{{recipe?.name}}</h1>
+<p>Created by: <strong>{{recipe?.userName}}</strong> on <em>{{recipe?.creationDate | date:'MMMM d, y, H:mm:ss' }}</em>. 
+    <span *ngIf="recipe?.editDate">Edited on <em>{{recipe?.editDate | date:'MMMM d, y, H:mm:ss'}}</em>.</span></p>
+<div class="row">
+    <div class="col-md-8">
+        <img class="img-fluid" src="http://placehold.it/750x400" alt="">
+    </div>
+    <div class="col-md-4">
+        <h3 class="my-3">Recipe Description</h3>
+        <p>{{recipe?.description}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <a *ngIf="currentUser?.userName === recipe?.userName" [routerLink]="['update']" class="btn btn-primary btn-lg my-3" role="button">
+            Update
+        </a>
+        <button *ngIf="currentUser?.userName === recipe?.userName" data-toggle="modal" data-target="#confirmModal" class="btn btn-danger btn-lg my-3" 
+            type="button">
+            Delete
+        </button>
+        <app-confirm-modal [question]="'Are you sure you want to delete this recipe?'" (confirmed)="deleteRecipe()"></app-confirm-modal>
+    </div>
+</div>
+
+<h3 class="my-4">Details</h3>
+<p>{{recipe?.content}}</p>
+
+<h3 class="my-4">Tags</h3>
+<app-tags-input [readonly]="true" [selectable]="true" [removable]="false"
+    [initialTags]="recipe?.tags" [routerLinkPath]="'/search'" [queryParamName]="searchTerm">
+</app-tags-input>

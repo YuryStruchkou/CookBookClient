@@ -19,14 +19,14 @@ export class RegisterFormComponent implements OnInit {
     private errorText: string;
 
     constructor(private builder: FormBuilder,
-         private router: Router,
-         private toastr: ToastrService,
-         private accountService: AccountService,
-         private authService: AuthService) {
-        if (authService.currentUserValue) {
+        private router: Router,
+        private toastr: ToastrService,
+        private accountService: AccountService,
+        authService: AuthService) {
+        if (authService.isLoggedIn) {
             this.router.navigate(['/']);
         }
-     }
+    }
 
     ngOnInit() {
         this.registerForm = this.builder.group({
@@ -34,24 +34,30 @@ export class RegisterFormComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, CustomValidators.isValidPassword]]
         });
-        this.registerForm.addControl('confirmPassword', 
+        this.registerForm.addControl('confirmPassword',
             new FormControl('', [CustomValidators.passwordMismatch(this.registerForm.controls.password)]));
     }
 
-    get f() { return this.registerForm.controls; }
+    private get f() { return this.registerForm.controls; }
 
     onSubmit() {
-        let model = { UserName: this.registerForm.controls.userName.value, email: this.registerForm.controls.email.value, 
-            Password: this.registerForm.controls.password.value, ConfirmPassword: this.registerForm.controls.confirmPassword.value };
-        this.accountService.register(model).subscribe(res => {
-            this.handleSuccessfulRegistration(res as RegisterResponse);
-        }, errors => {
-            this.errorText = errors.error.errors[0];
+        let model = {
+            UserName: this.registerForm.controls.userName.value, email: this.registerForm.controls.email.value,
+            Password: this.registerForm.controls.password.value, ConfirmPassword: this.registerForm.controls.confirmPassword.value
+        };
+        this.accountService.register(model).subscribe({
+            next: this.handleSuccessfulRegistration.bind(this),
+            error: this.handleError.bind(this)
         });
     }
 
-    handleSuccessfulRegistration(response: RegisterResponse) {
+    private handleSuccessfulRegistration(res: Object) {
+        let response = res as RegisterResponse;
         this.toastr.success(`The confirmation email was sent to your email address ${response.email}.`, 'Registration successful.');
         this.router.navigate(['/account/login']);
+    }
+
+    private handleError(errors: any) {
+        this.errorText = errors.error.errors[0];
     }
 }

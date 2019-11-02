@@ -1,31 +1,43 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+    public currentUser: BehaviorSubject<User>;
+    public redirectUrl: string;
     private static readonly CURRENT_USER_KEY = 'currentUser';
 
-    public get currentUserValue(): User {
-        return this.currentUserSubject.value;
+    constructor(private router: Router) {
+        this.currentUser = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(AuthService.CURRENT_USER_KEY)));
     }
 
-    constructor() {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(AuthService.CURRENT_USER_KEY)));
-        this.currentUser = this.currentUserSubject.asObservable();
+    public get isLoggedIn() {
+        let user = this.currentUserValue;
+        const userSaved = user && new Date(user.expiryDate).getTime() > new Date().getTime(); 
+        return userSaved;
+    }
+
+    public get currentUserValue() {
+        const user = JSON.parse(localStorage.getItem(AuthService.CURRENT_USER_KEY));
+        this.currentUser.next(user);
+        return this.currentUser.value;
     }
 
     public addUserToLocalStorage(user: User) {
         localStorage.setItem(AuthService.CURRENT_USER_KEY, JSON.stringify(user));
-        this.currentUserSubject.next(user);
+        this.currentUser.next(user);
+        if (this.redirectUrl) {
+            this.router.navigate([this.redirectUrl]);
+            this.redirectUrl = null;
+        }
     }
 
     public logout() {
         localStorage.removeItem(AuthService.CURRENT_USER_KEY);
-        this.currentUserSubject.next(null);
+        this.currentUser.next(null);
     }
 }

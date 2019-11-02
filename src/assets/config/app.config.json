@@ -1,6 +1,9 @@
 {
     "apiEndpoints": {
         "register": "api/account/register",
-        "login": "api/account/login"
+        "login": "api/account/login",
+        "refreshToken": "api/account/refresh",
+        "logout": "api/account/logout",
+        "recipe": "api/recipe/"
     }
 }

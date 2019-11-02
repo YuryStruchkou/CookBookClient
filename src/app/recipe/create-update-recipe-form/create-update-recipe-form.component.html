@@ -1,0 +1,92 @@
+<form class="form-horizontal" [formGroup]="createUpdateRecipeForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2>Create a new recipe</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label class="required" for="name">Name</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="text" formControlName="name" class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.name.dirty || f.name.touched) && f.name.errors }"
+                        placeholder="Name" autofocus>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div *ngIf="(f.name.dirty || f.name.touched) && f.name.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.name.errors.required" class="invalid-caption">Name is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label class="required" for="description">Description</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="text" formControlName="description" class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.description.dirty || f.description.touched) && f.description.errors }"
+                        placeholder="A short description">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div *ngIf="(f.description.dirty || f.description.touched) && f.description.errors"
+                class="invalid-feedback d-block">
+                <div *ngIf="f.description.errors.required" class="invalid-caption">Description is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label class="required" for="content">Content</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <textarea rows="10" formControlName="content" class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.content.dirty || f.content.touched) && f.content.errors }"
+                        placeholder="Your recipe content">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div *ngIf="(f.content.dirty || f.content.touched) && f.content.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.content.errors.required" class="invalid-caption">Content is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="tags">Tags</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <app-tags-input [selectable]="true" [removable]="true" (onChanged)="tagsChanged($event)"
+                    [initialTags]="recipe?.tags">
+                </app-tags-input>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-success" [disabled]="createUpdateRecipeForm.invalid">Submit</button>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 invalid-feedback d-block">
+        <div class="invalid-caption">{{errorText}}</div>
+    </div>
+</div>
