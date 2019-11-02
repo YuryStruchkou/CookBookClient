@@ -21,21 +21,21 @@ export class AccountService {
     }
 
     public login(body: any) {
-        return this.repository.post(this.loginEndpoint, body, true);
+        return this.repository.post(this.loginEndpoint, body, { withCredentials: true });
     }
 
     public refresh() {
         if (this.authService.currentUserValue == null) {
             return throwError('User not set.');
         }
-        return this.repository.post(this.refreshTokenEndpoint, { UserName: this.authService.currentUserValue.userName }, true);
+        return this.repository.post(this.refreshTokenEndpoint, { UserName: this.authService.currentUserValue.userName }, { withCredentials: true });
     }
 
     public logout() {
         if (this.authService.currentUserValue == null) {
             return throwError('User not set.');
         }
-        this.repository.post(this.logoutEndpoint, { UserName: this.authService.currentUserValue.userName }, true).subscribe(res => {
+        this.repository.post(this.logoutEndpoint, { UserName: this.authService.currentUserValue.userName }, { withCredentials: true }).subscribe(res => {
             this.authService.logout();
         });
     }

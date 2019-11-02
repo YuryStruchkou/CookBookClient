@@ -16,21 +16,23 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler) {
         return next.handle(request).pipe(catchError(error => {
-                if (!(error instanceof HttpErrorResponse) || error.status !== HttpStatusCodes.UNAUTHORIZED) {
-                    throwError(error);
-                }
-                if (request.url.endsWith(this.refreshTokenEndpoint)) {
-                    this.authService.redirectUrl = this.router.url;
-                    this.accountService.logout();
-                    this.navigateToLogin();
-                }
-                else {
-                    return this.refresh().pipe(switchMap(() => {
-                        return next.handle(this.updateAuthHeader(request));
-                    }));
-                }
+            if (!(error instanceof HttpErrorResponse) || error.status !== HttpStatusCodes.UNAUTHORIZED) {
+                return throwError(error);
             }
-        ));
+            if (error.status === 0) {
+                this.router.navigate(['/503']);
+                return;
+            }
+            if (request.url.endsWith(this.refreshTokenEndpoint)) {
+                this.authService.redirectUrl = this.router.url;
+                this.accountService.logout();
+                this.navigateToLogin();
+                return;
+            }
+            return this.refresh().pipe(switchMap(() => {
+                return next.handle(this.updateAuthHeader(request));
+            }));
+        }));
     }
 
     private navigateToLogin() {

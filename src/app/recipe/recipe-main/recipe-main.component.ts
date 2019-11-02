@@ -38,6 +38,12 @@ export class RecipeMainComponent implements OnInit, OnDestroy {
         this.recipeService.markRecipeAsDeleted(this.recipe.id).subscribe(() => this.router.navigate(['/recipe', this.recipe.id]));
     }
 
+    private vote(voteValue: number) {
+        if (voteValue) {
+            this.recipeService.addVote(this.recipe.id, voteValue).subscribe(() => this.router.navigate(['/recipe', this.recipe.id]));
+        }
+    }
+
     ngOnDestroy() {
         this.unsubscriber.next();
         this.unsubscriber.complete();

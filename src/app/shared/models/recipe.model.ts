@@ -1,3 +1,5 @@
+import { VoteData } from './vote-data.model';
+
 export class Recipe {
     id: number;
     name: string;
@@ -8,8 +10,7 @@ export class Recipe {
     editDate: Date;
     deleteDate: Date;
     recipeStatus: string;
-    totalVotes: number;
-    averageVote: number;
-    userVote: number;
+    recipeVoteData: VoteData;
     userName: string;
 }
+
