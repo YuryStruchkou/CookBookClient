@@ -8,6 +8,8 @@ import { AppConfigService } from './app-config.service';
 export class RecipeService {
     private recipeEndpoint = AppConfigService.settings.apiEndpoints.recipe;
     private voteSuffix = AppConfigService.settings.apiEndpoints.voteSuffix;
+    private popularRecipesSuffix = AppConfigService.settings.apiEndpoints.popularRecipesSuffix;
+    private recentRecipesSuffix = AppConfigService.settings.apiEndpoints.recentRecipesSuffix;
 
     constructor(private repository: RepositoryService) { }
 
@@ -33,5 +35,13 @@ export class RecipeService {
 
     public getCurrentUserVote(id: number) {
         return this.repository.get(this.recipeEndpoint + id + this.voteSuffix);
+    }
+
+    public getPopularRecipes() {
+        return this.repository.get(this.recipeEndpoint + this.popularRecipesSuffix, { params: { count: 4 } });
+    }
+
+    public getRecentRecipes() {
+        return this.repository.get(this.recipeEndpoint + this.recentRecipesSuffix, { params: { count: 4 } });
     }
 }

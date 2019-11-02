@@ -6,6 +6,8 @@
         "logout": "api/account/logout",
         "recipe": "api/recipe/",
         "voteSuffix": "/vote",
+        "popularRecipesSuffix": "/popular",
+        "recentRecipesSuffix": "/recent",
         "userProfile": "api/user/"
     }
 }
