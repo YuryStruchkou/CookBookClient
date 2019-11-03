@@ -18,6 +18,7 @@ export class CommentsComponent implements OnInit {
     private editCommentForm: FormGroup;
     private addCommentErrorText: string;
     private editCommentErrorText: string;
+    private hideEditForm: boolean = true;
 
     constructor(private builder: FormBuilder,
         private commentService: CommentService) { }
@@ -28,7 +29,8 @@ export class CommentsComponent implements OnInit {
 
     ngOnInit() {
         this.editCommentForm = this.builder.group({
-            content: ['', Validators.required]
+            content: ['', Validators.required],
+            id: ['']
         });
         this.addCommentForm = this.builder.group({
             content: ['', Validators.required]
@@ -56,5 +58,47 @@ export class CommentsComponent implements OnInit {
 
     private handleErrorAddComment(errors: any) {
         this.addCommentErrorText = errors.error.errors[0];
+    }
+
+    edit(comment: Comment) {
+        this.editCommentForm.patchValue({
+            id: comment.id,
+            content: comment.content
+        });
+        this.hideEditForm = false;
+    }
+
+    cancelEdit() {
+        this.hideEditForm = true;
+    }
+
+    onSubmitEdit() {
+        console.log(this.editCommentForm.controls.id.value);
+        const model = {
+            Content: this.editCommentForm.controls.content.value,
+        };
+        const request = this.commentService.updateComment(model, this.editCommentForm.controls.id.value);
+        request.subscribe({
+            next: this.handleSuccessEditComment.bind(this),
+            error: this.handleErrorEditComment.bind(this)
+        });
+    }
+
+    private handleSuccessEditComment(res: Object) {
+        const comment = res as Comment;
+        const index = this.comments.findIndex(c => c.id === comment.id);
+        this.comments[index] = comment;
+        this.hideEditForm = true;
+    }
+
+    private handleErrorEditComment(errors: any) {
+        this.editCommentErrorText = errors.error.errors[0];
+    }
+
+    private delete(comment: Comment) {
+        this.commentService.deleteComment(comment.id).subscribe(res => {
+            const index = this.comments.findIndex(c => c.id === comment.id);
+            delete this.comments[index];
+        });
     }
 }

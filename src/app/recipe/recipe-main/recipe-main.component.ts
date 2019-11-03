@@ -27,7 +27,6 @@ export class RecipeMainComponent implements OnInit, OnDestroy {
         this.router.events.pipe(takeUntil(this.unsubscriber)).subscribe(e => {
             if (e instanceof NavigationEnd) {
                 this.recipe = this.route.snapshot.data.recipe;
-                console.log(this.recipe.comments);
             }
         });
     }

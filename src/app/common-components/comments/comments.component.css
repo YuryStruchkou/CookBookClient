@@ -137,3 +137,19 @@
 .invalid-caption {
     color: red;
 }
+
+.fixed {
+    position: fixed;
+    z-index: 9999;
+    width: 75%;
+    height: 10%;
+    padding-top: 5%;
+    padding-bottom: 22%;
+    padding-right: 15%;
+    padding-left: 15%;
+    bottom: 0;
+}
+
+.hidden {
+    display: none;
+}

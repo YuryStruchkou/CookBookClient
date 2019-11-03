@@ -45,7 +45,38 @@
             <p>{{comment?.content}}</p>
         </div>
         <p class="links" *ngIf="currentUser != null && currentUser.userName === comment?.userName">
-            <small><a href="">Edit</a> - <a href="">Delete</a></small>
+            <small><a href="javascript:void(0);" (click)="edit(comment)">Edit</a> - <a href="javascript:void(0);" (click)="delete(comment)">Delete</a></small>
         </p>
     </div>
+</div>
+<div *ngIf="currentUser != null" id="edit-comment-form" class="fixed bg-dark" [ngClass]="{ 'hidden': hideEditForm }">
+    <form class="form-horizontal my-3" [formGroup]="editCommentForm" (ngSubmit)="onSubmitEdit()">
+        <input formControlName="id" type="hidden">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <textarea rows="10" formControlName="content" class="form-control"
+                            [ngClass]="{ 'is-invalid': (ecf.content.dirty || ecf.content.touched) && ecf.content.errors }"
+                            placeholder="Add a comment">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div *ngIf="(ecf.content.dirty || ecf.content.touched) && ecf.content.errors" class="invalid-feedback d-block">
+                    <div *ngIf="ecf.content.errors.required" class="invalid-caption">Content is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <button type="cancel" class="btn btn-danger" (click)="cancelEdit()">Cancel</button>
+            </div>
+            <div class="col-md-1 offset-md-9 invalid-caption">{{editCommentErrorText}}</div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success" [disabled]="editCommentForm.invalid">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>
