@@ -11,6 +11,7 @@ export class Recipe {
     deleteDate: Date;
     recipeStatus: string;
     recipeVoteData: VoteData;
+    comments: Comment[];
     userName: string;
 }
 

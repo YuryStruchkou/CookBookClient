@@ -65,5 +65,8 @@
 
 <h3 class="my-4">Tags</h3>
 <app-tags-input [readonly]="true" [selectable]="true" [removable]="false" [initialTags]="recipe?.tags"
-    [routerLinkPath]="'/search'" [queryParamName]="searchTerm">
+    [routerLinkPath]="'/search'">
 </app-tags-input>
+
+<h3 class="my-4">Comments</h3>
+<app-comments [currentUser]="currentUser" [comments]="recipe?.comments"></app-comments>

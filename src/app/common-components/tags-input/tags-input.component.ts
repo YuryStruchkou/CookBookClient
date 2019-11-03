@@ -13,7 +13,6 @@ export class TagsInputComponent implements OnInit {
     @Input() private initialTags: string[];
     @Input() private readonly: boolean = false;
     @Input() private routerLinkPath: string;
-    @Input() private queryParamName: string;
     @Output() onChanged = new EventEmitter<string[]>();
     private readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     private tags: string[];

@@ -8,9 +8,10 @@ import { RouterModule } from '@angular/router';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { CardComponent } from './card/card.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
-  declarations: [TagsInputComponent, ConfirmModalComponent, CardComponent],
+  declarations: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent],
   imports: [
     CommonModule,
     MatChipsModule,
@@ -19,6 +20,6 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
     NgbRatingModule,
     RouterModule
   ],
-  exports: [TagsInputComponent, ConfirmModalComponent, CardComponent]
+  exports: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent]
 })
 export class CommonComponentsModule { }
