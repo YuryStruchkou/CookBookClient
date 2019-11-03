@@ -9,6 +9,7 @@ export interface IAppConfig {
         popularRecipesSuffix: string,
         recentRecipesSuffix: string,
         userProfile: string,
-        search: string
+        search: string,
+        comment: string
     }
 }

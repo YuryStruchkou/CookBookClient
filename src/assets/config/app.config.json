@@ -9,6 +9,7 @@
         "popularRecipesSuffix": "/popular",
         "recentRecipesSuffix": "/recent",
         "userProfile": "api/user/",
-        "search": "api/search"
+        "search": "api/search",
+        "comment": "api/comment"
     }
 }

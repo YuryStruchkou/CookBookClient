@@ -1,3 +1,30 @@
+<div *ngIf="currentUser != null">
+    <form class="form-horizontal" [formGroup]="addCommentForm" (ngSubmit)="onSubmitAdd()">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <textarea rows="10" formControlName="content" class="form-control"
+                            [ngClass]="{ 'is-invalid': (acf.content.dirty || acf.content.touched) && acf.content.errors }"
+                            placeholder="Add a comment">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div *ngIf="(acf.content.dirty || acf.content.touched) && acf.content.errors" class="invalid-feedback d-block">
+                    <div *ngIf="acf.content.errors.required" class="invalid-caption">Content is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 offset-md-10 invalid-caption">{{addCommentErrorText}}</div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success" [disabled]="addCommentForm.invalid">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
 <div *ngFor="let comment of comments">
     <div class="card card-white post">
         <div class="post-heading">
@@ -17,5 +44,8 @@
         <div class="post-description"> 
             <p>{{comment?.content}}</p>
         </div>
+        <p class="links" *ngIf="currentUser != null && currentUser.userName === comment?.userName">
+            <small><a href="">Edit</a> - <a href="">Delete</a></small>
+        </p>
     </div>
 </div>

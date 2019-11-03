@@ -9,17 +9,20 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { CardComponent } from './card/card.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommentsComponent } from './comments/comments.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent],
-  imports: [
-    CommonModule,
-    MatChipsModule,
-    MatIconModule,
-    MatFormFieldModule,
-    NgbRatingModule,
-    RouterModule
-  ],
-  exports: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent]
+    declarations: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent],
+    imports: [
+        CommonModule,
+        MatChipsModule,
+        MatIconModule,
+        MatFormFieldModule,
+        NgbRatingModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule
+    ],
+    exports: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent]
 })
 export class CommonComponentsModule { }

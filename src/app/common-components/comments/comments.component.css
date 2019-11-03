@@ -73,6 +73,10 @@
     margin-right: 8px;
 }
 
+.post .links {
+    padding-left: 15px;
+}
+
 .post .post-footer {
     border-top: 1px solid #ddd;
     padding: 15px;
@@ -123,4 +127,13 @@
 
 .post .post-footer .comments-list .comment>.comments-list {
     margin-left: 50px;
+}
+
+.btn-success {
+    margin-bottom: 8px;
+    margin-right: 2px;
+}
+
+.invalid-caption {
+    color: red;
 }
