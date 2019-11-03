@@ -18,6 +18,7 @@ import { RefusedConnectionInterceptor } from './shared/interceptors/refused-conn
 import { ServiceUnavailableComponent } from './error-pages/service-unavailable/service-unavailable.component';
 import { CommonComponentsModule } from './common-components/common-components.module';
 import { PopularRecentRecipesResolver } from './shared/resolvers/popular-recent-recipes.resolver';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 export function initializeApp(appConfig: AppConfigService) {
     return () => appConfig.load();
@@ -35,6 +36,8 @@ export function initializeApp(appConfig: AppConfigService) {
         BrowserModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
         ToastrModule.forRoot({
             timeOut: 3000,
             preventDuplicates: true,
@@ -46,6 +49,7 @@ export function initializeApp(appConfig: AppConfigService) {
             { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
             { path: 'recipe', loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule) },
             { path: 'user', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule) },
+            { path: 'search', loadChildren: () => import('./search/search.module').then(m => m.SearchModule) },
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: '404', component: NotFoundComponent },
             { path: '503', component: ServiceUnavailableComponent },

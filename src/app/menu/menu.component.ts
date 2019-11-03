@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../shared/services/auth.service';
 import { User } from './../shared/models/user.model';
 import { AccountService } from '../shared/services/account.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-menu',
@@ -9,10 +11,16 @@ import { AccountService } from '../shared/services/account.service';
     styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
+    private searchForm: FormGroup;
     private currentUser: User;
 
-    constructor(private authService: AuthService, private accountService: AccountService) {
+    constructor(private router: Router, 
+        private builder: FormBuilder, 
+        private authService: AuthService,
+        private accountService: AccountService) {
+        this.searchForm = this.builder.group({
+            query: ['']
+        });
         this.authService.currentUser.subscribe(user => {
             this.currentUser = user;
         });
@@ -21,4 +29,8 @@ export class MenuComponent implements OnInit {
     ngOnInit() {
     }
 
+    onSubmit(event: any) {
+        const query = this.searchForm.controls.query.value;
+        this.router.navigate(['/search'], { queryParams: { query: query } });
+    }
 }
