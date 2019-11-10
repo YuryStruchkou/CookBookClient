@@ -26,25 +26,25 @@
     </form>
 </div>
 <div *ngFor="let comment of comments">
-    <div class="card card-white post">
+    <div *ngIf="comment" class="card card-white post">
         <div class="post-heading">
             <div class="float-left image">
                 <img src="http://placehold.it/50x30" class="img-circle avatar" alt="user profile image">
             </div>
             <div class="float-left meta">
                 <div class="title h5">
-                    <a [routerLink]="['/user/' + comment.userId]"><b>{{comment?.userName}}</b></a>
+                    <a [routerLink]="['/user/' + comment.userId]"><b>{{comment.userName}}</b></a>
                 </div>
-                <h6 class="text-muted time">{{comment?.creationDate | date:'MMMM d, y, H:mm:ss' }}</h6>
+                <h6 class="text-muted time">{{comment.creationDate | date:'MMMM d, y, H:mm:ss' }}</h6>
                 <h6 class="text-muted time">
-                    <strong *ngIf="comment?.editDate">Edited: </strong>{{comment?.editDate | date:'MMMM d, y, H:mm:ss' }}
+                    <strong *ngIf="comment.editDate">Edited: </strong>{{comment.editDate | date:'MMMM d, y, H:mm:ss' }}
                 </h6>
             </div>
         </div> 
         <div class="post-description"> 
-            <p>{{comment?.content}}</p>
+            <p>{{comment.content}}</p>
         </div>
-        <p class="links" *ngIf="currentUser != null && currentUser.userName === comment?.userName">
+        <p class="links" *ngIf="currentUser != null && currentUser.userName === comment.userName">
             <small><a href="javascript:void(0);" (click)="edit(comment)">Edit</a> - <a href="javascript:void(0);" (click)="delete(comment)">Delete</a></small>
         </p>
     </div>
