@@ -6,8 +6,8 @@
         "logout": "api/account/logout",
         "recipe": "api/recipe/",
         "voteSuffix": "/vote",
-        "popularRecipesSuffix": "/popular",
-        "recentRecipesSuffix": "/recent",
+        "popularRecipesSuffix": "popular",
+        "recentRecipesSuffix": "recent",
         "userProfile": "api/user/",
         "search": "api/search",
         "comment": "api/comment/"
