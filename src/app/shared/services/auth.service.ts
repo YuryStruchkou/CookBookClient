@@ -27,6 +27,11 @@ export class AuthService {
         return this.currentUser.value;
     }
 
+    public get isAdmin() {
+        let user = this.currentUserValue;
+        return this.isLoggedIn && user.userRole === Roles.ADMIN;
+    }
+
     public addUserToLocalStorage(user: User) {
         localStorage.setItem(AuthService.CURRENT_USER_KEY, JSON.stringify(user));
         this.currentUser.next(user);

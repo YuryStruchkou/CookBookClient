@@ -9,6 +9,9 @@
         "popularRecipesSuffix": "popular",
         "recentRecipesSuffix": "recent",
         "userProfile": "api/user/",
+        "muteSuffix": "/mute",
+        "blockSuffix": "/block",
+        "restoreSuffix": "/restore",
         "search": "api/search",
         "comment": "api/comment/"
     }

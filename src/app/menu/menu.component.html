@@ -12,7 +12,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light font-weight-bold px-3" [routerLink]="['/recipe/new']">New recipe</a>
+                    <a class="nav-link text-light font-weight-bold px-3" [routerLink]="['/recipe/new']">
+                        New recipe
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="currentUser.userRole == adminRole">
+                    <a class="nav-link text-light font-weight-bold px-3" [routerLink]="['/admin']">
+                        Admin page
+                    </a>
                 </li>
             </ng-container>
         </ul>

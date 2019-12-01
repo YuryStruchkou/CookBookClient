@@ -49,6 +49,7 @@ export function initializeApp(appConfig: AppConfigService) {
             { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
             { path: 'recipe', loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule) },
             { path: 'user', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule) },
+            { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
             { path: 'search', loadChildren: () => import('./search/search.module').then(m => m.SearchModule) },
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: '404', component: NotFoundComponent },

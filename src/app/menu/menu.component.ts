@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
     private searchForm: FormGroup;
     private currentUser: User;
+    private adminRole = Roles.ADMIN;
 
     constructor(private router: Router, 
         private builder: FormBuilder, 

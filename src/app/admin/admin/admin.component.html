@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 invalid-feedback d-block">
+        <div class="invalid-caption">{{errorText}}</div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">User name</th>
+            <th scope="col">Number of recipes</th>
+            <th scope="col">Status</th>
+            <th scope="col">Muted?</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let user of users; let i = index">
+        <tr>
+            <th scope="row">{{i + 1}}</th>
+            <td>{{user.userName}}</td>
+            <td>{{user.recipes.length}}</td>
+            <td>{{user.userStatus}}</td>
+            <td>{{user.isMuted ? "yes": "no"}}</td>
+            <td >
+                <ng-container *ngIf="user.userId != currentUser.userId">
+                    <button (click)="restoreUser(user.userId)" *ngIf="user.userStatus != activeStatus || user.isMuted" type="button" class="btn btn-primary">
+                        Restore
+                    </button>
+                    <button (click)="blockUser(user.userId)" *ngIf="user.userStatus == activeStatus" type="button" class="btn btn-warning">
+                        Block
+                    </button>
+                    <button (click)="muteUser(user.userId)" *ngIf="user.userStatus == activeStatus && !user.isMuted" type="button" class="btn btn-warning">
+                        Mute
+                    </button>
+                    <button (click)="deleteUser(user.userId)" *ngIf="user.userStatus != deletedStatus" type="button" class="btn btn-danger">
+                        Delete
+                    </button>
+                </ng-container>
+            </td>
+        </tr>
+    </tbody>
+</table>
