@@ -1,7 +1,10 @@
 <h1 class="my-4">{{user?.userName}}</h1>
 <div class="row">
     <div class="col-md-8">
-        <img class="img-fluid" src="http://placehold.it/750x400" alt="">
+        <cl-image class="img-fluid" *ngIf="user?.imagePublicId != null" public-id={{user.imagePublicId}}>
+            <cl-transformation height="400" width="750" crop="fill"></cl-transformation>
+        </cl-image>
+        <img *ngIf="user?.imagePublicId == null" src="http://placehold.it/750x400" class="img-fluid" alt="">
     </div>
 </div>
 <div class="row">
@@ -31,9 +34,9 @@
     </div>
 </div>
 <h2 class="my-4">Recipes</h2>
-<div class="row" >
+<div class="row">
     <div *ngFor="let recipe of user?.recipes" class="col-md-3">
-        <app-card [image]="'http://placehold.it/250x200'" [route]="'/recipe/' + recipe.id"
-             [averageVote]="recipe.averageVote" [title]="recipe.name" [description]="recipe.description"></app-card>
+        <app-card [image]="recipe.imagePublicId" [route]="'/recipe/' + recipe.id" [averageVote]="recipe.averageVote"
+            [title]="recipe.name" [description]="recipe.description"></app-card>
     </div>
 </div>

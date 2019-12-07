@@ -20,7 +20,12 @@ export class UserDetailsResolver implements Resolve<UserProfile> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const id = parseInt(route.paramMap.get('id'));
         return this.userProfileService.getUserProfile(id).pipe(flatMap(result => {
-            return of(result as UserProfile);
+            let user = result as UserProfile;
+            if (route.data['update'] && this.currentUser.userName != user.userName) {
+                this.router.navigate(["/404"]);
+                return of(null);
+            }
+            return of(user);
         }), catchError(error => {
             this.router.navigate(["/404"]);
             return of(null);

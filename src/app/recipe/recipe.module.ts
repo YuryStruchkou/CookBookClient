@@ -8,6 +8,8 @@ import { CommonComponentsModule } from '../common-components/common-components.m
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { RecipeMainComponent } from './recipe-main/recipe-main.component';
 import { RecipeDetailResolver } from '../shared/resolvers/recipe-detail.resolver';
+import { CloudinaryConfiguration, CloudinaryModule } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 
 @NgModule({
   declarations: [CreateUpdateRecipeFormComponent, RecipeMainComponent],
@@ -23,6 +25,7 @@ import { RecipeDetailResolver } from '../shared/resolvers/recipe-detail.resolver
       { path: ':id/update', component: CreateUpdateRecipeFormComponent, canActivate: [AuthGuard], data: { 'update': true }, 
         resolve: { recipe: RecipeDetailResolver }}
     ]),
+    CloudinaryModule.forRoot({Cloudinary}, { cloud_name: "dhyutbotf" } as CloudinaryConfiguration),
     CommonComponentsModule
   ]
 })

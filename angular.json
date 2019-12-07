@@ -56,13 +56,21 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "CookBookClient:build",
+            "browserTarget": "CookBookClient:build:local",
             "port": 44341,
             "sslKey": "/node_modules/browser-sync/lib/server/certs/server.key",
             "sslCert": "/node_modules/browser-sync/lib/server/certs/server.crt",
@@ -71,6 +79,9 @@
           "configurations": {
             "production": {
               "browserTarget": "CookBookClient:build:production"
+            },
+            "local": {
+              "browserTarget": "CookBookClient:build:local"
             }
           }
         },

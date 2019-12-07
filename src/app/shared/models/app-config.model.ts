@@ -14,5 +14,8 @@ export interface IAppConfig {
         restoreSuffix: string,
         search: string,
         comment: string
+    },
+    cloudinary: {
+        cloud_name: string
     }
 }

@@ -5,5 +5,6 @@ export class Comment {
     editDate: Date;
     userName: string;
     userId: number;
+    imagePublicId: string;
 }
 

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageUploadComponent } from 'src/app/common-components/image-upload/image-upload.component';
 
 @Component({
     selector: 'app-create-update-recipe-form',
@@ -10,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./create-update-recipe-form.component.css']
 })
 export class CreateUpdateRecipeFormComponent implements OnInit {
+    @ViewChild(ImageUploadComponent, { static: false }) imageUploadComponent: ImageUploadComponent;
     private createUpdateRecipeForm: FormGroup;
     private recipe: Recipe;
     private tags: string[];
@@ -38,7 +40,7 @@ export class CreateUpdateRecipeFormComponent implements OnInit {
     private setInitialValues() {
         this.recipe = this.activeRoute.snapshot.data.recipe;
         this.createUpdateRecipeForm.patchValue({
-            name: this.recipe.userName,
+            name: this.recipe.name,
             description: this.recipe.description,
             content: this.recipe.content
         });
@@ -51,11 +53,16 @@ export class CreateUpdateRecipeFormComponent implements OnInit {
     }
 
     onSubmit() {
+        this.imageUploadComponent.submit();
+    }
+
+    sendRequest(publicId: string) {
         const model = {
             Name: this.createUpdateRecipeForm.controls.name.value,
             Description: this.createUpdateRecipeForm.controls.description.value,
             Content: this.createUpdateRecipeForm.controls.content.value,
-            Tags: this.tags
+            Tags: this.tags,
+            ImagePublicId: publicId || (this.recipe != null ? this.recipe.imagePublicId : null)
         };
         const request = this.isUpdate ? this.recipeService.updateRecipe(model, this.recipe.id) : this.recipeService.createRecipe(model);
         request.subscribe({

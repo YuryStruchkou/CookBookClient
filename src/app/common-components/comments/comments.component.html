@@ -12,7 +12,8 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div *ngIf="(acf.content.dirty || acf.content.touched) && acf.content.errors" class="invalid-feedback d-block">
+                <div *ngIf="(acf.content.dirty || acf.content.touched) && acf.content.errors"
+                    class="invalid-feedback d-block">
                     <div *ngIf="acf.content.errors.required" class="invalid-caption">Content is required.</div>
                 </div>
             </div>
@@ -29,7 +30,11 @@
     <div *ngIf="comment" class="card card-white post">
         <div class="post-heading">
             <div class="float-left image">
-                <img src="http://placehold.it/50x30" class="img-circle avatar" alt="user profile image">
+                <cl-image class="img-circle avatar" *ngIf="comment.imagePublicId != null" public-id={{comment.imagePublicId}}>
+                    <cl-transformation height="55" width="65" crop="fill"></cl-transformation>
+                </cl-image>
+                <img *ngIf="comment.imagePublicId == null" src="http://placehold.it/50x30" class="img-circle avatar"
+                    alt="user profile image">
             </div>
             <div class="float-left meta">
                 <div class="title h5">
@@ -40,12 +45,13 @@
                     <strong *ngIf="comment.editDate">Edited: </strong>{{comment.editDate | date:'MMMM d, y, H:mm:ss' }}
                 </h6>
             </div>
-        </div> 
-        <div class="post-description"> 
+        </div>
+        <div class="post-description">
             <p>{{comment.content}}</p>
         </div>
         <p class="links" *ngIf="currentUser != null && currentUser.userName === comment.userName">
-            <small><a href="javascript:void(0);" (click)="edit(comment)">Edit</a> - <a href="javascript:void(0);" (click)="delete(comment)">Delete</a></small>
+            <small><a href="javascript:void(0);" (click)="edit(comment)">Edit</a> - <a href="javascript:void(0);"
+                    (click)="delete(comment)">Delete</a></small>
         </p>
     </div>
 </div>
@@ -64,7 +70,8 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div *ngIf="(ecf.content.dirty || ecf.content.touched) && ecf.content.errors" class="invalid-feedback d-block">
+                <div *ngIf="(ecf.content.dirty || ecf.content.touched) && ecf.content.errors"
+                    class="invalid-feedback d-block">
                     <div *ngIf="ecf.content.errors.required" class="invalid-caption">Content is required.</div>
                 </div>
             </div>

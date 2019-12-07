@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:44342'
+  apiUrl: 'https://localhost:44342',
+  cloudinary_cloud: 'cloud',
+  cloudinary_preset: 'preset'
 };
 
 /*

@@ -13,5 +13,6 @@ export class Recipe {
     recipeVoteData: VoteData;
     comments: Comment[];
     userName: string;
+    imagePublicId: string;
 }
 

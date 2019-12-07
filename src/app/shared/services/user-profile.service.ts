@@ -17,6 +17,10 @@ export class UserProfileService {
         return this.repository.get(this.userProfileEndpoint + id);
     }
 
+    public updateUser(model: any, id: number) {
+        return this.repository.patch(this.userProfileEndpoint + id, model);
+    }
+
     public getAllUsers() {
         return this.repository.get(this.userProfileEndpoint);
     }

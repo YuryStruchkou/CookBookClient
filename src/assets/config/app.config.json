@@ -14,5 +14,8 @@
         "restoreSuffix": "/restore",
         "search": "api/search",
         "comment": "api/comment/"
+    },
+    "cloudinary": {
+        "cloud_name": "dhyutbotf"
     }
 }

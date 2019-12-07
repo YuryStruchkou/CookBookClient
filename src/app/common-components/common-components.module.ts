@@ -10,9 +10,13 @@ import { CardComponent } from './card/card.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommentsComponent } from './comments/comments.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
-    declarations: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent],
+    declarations: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent, ImageUploadComponent, FileSelectDirective],
     imports: [
         CommonModule,
         MatChipsModule,
@@ -21,8 +25,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         NgbRatingModule,
         RouterModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CloudinaryModule.forRoot({Cloudinary}, { cloud_name: "dhyutbotf" } as CloudinaryConfiguration)
     ],
-    exports: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent]
+    exports: [TagsInputComponent, ConfirmModalComponent, CardComponent, CommentsComponent, ImageUploadComponent]
 })
 export class CommonComponentsModule { }

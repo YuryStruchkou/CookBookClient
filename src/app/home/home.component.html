@@ -1,14 +1,14 @@
 <h2 class="my-4">Popular recipes</h2>
 <div class="row" >
     <div *ngFor="let recipe of popularRecipes" class="col-md-3">
-        <app-card [image]="'http://placehold.it/250x200'" [route]="'/recipe/' + recipe.id"
+        <app-card [image]="recipe.imagePublicId" [route]="'/recipe/' + recipe.id"
              [averageVote]="recipe.averageVote" [title]="recipe.name" [description]="recipe.description"></app-card>
     </div>
 </div>
 <h2 class="my-4">New recipes</h2>
 <div class="row" >
     <div *ngFor="let recipe of recentRecipes" class="col-md-3">
-        <app-card [image]="'http://placehold.it/250x200'" [route]="'/recipe/' + recipe.id"
+        <app-card [image]="recipe.imagePublicId" [route]="'/recipe/' + recipe.id"
              [averageVote]="recipe.averageVote" [title]="recipe.name" [description]="recipe.description"></app-card>
     </div>
 </div>

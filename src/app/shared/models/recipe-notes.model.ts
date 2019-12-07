@@ -3,4 +3,5 @@ export class RecipeNotes{
     name: string;
     averageVote: number;
     recipeStatus: string;
+    imagePublicId: string;
 }

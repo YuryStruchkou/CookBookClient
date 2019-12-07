@@ -1,5 +1,11 @@
 <div class="card">
-    <a [routerLink]="route"><img src={{image}} class="card-img-top" alt={{title}}></a>
+    <a *ngIf="image != null" [routerLink]="route">
+        <cl-image public-id={{image}}>
+            <cl-transformation height="200" width="250" crop="fill"></cl-transformation>
+        </cl-image>
+    </a>
+    <a *ngIf="image == null" [routerLink]="route"><img src="http://placehold.it/250x200" class="card-img-top"
+            alt={{title}}></a>
     <div class="card-body">
         <h5 class="card-title">{{title}}</h5>
         <p class="card-text">{{description}}</p>
