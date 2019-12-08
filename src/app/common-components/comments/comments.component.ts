@@ -19,6 +19,7 @@ export class CommentsComponent implements OnInit {
     private addCommentErrorText: string;
     private editCommentErrorText: string;
     private hideEditForm: boolean = true;
+    private adminRole = Roles.ADMIN;
 
     constructor(private builder: FormBuilder,
         private commentService: CommentService) { }

@@ -1,4 +1,4 @@
-<div *ngIf="currentUser != null">
+<div *ngIf="currentUser != null && !currentUser.isMuted">
     <form class="form-horizontal" [formGroup]="addCommentForm" (ngSubmit)="onSubmitAdd()">
         <div class="row">
             <div class="col-md-12">
@@ -49,9 +49,11 @@
         <div class="post-description">
             <p>{{comment.content}}</p>
         </div>
-        <p class="links" *ngIf="currentUser != null && currentUser.userName === comment.userName">
-            <small><a href="javascript:void(0);" (click)="edit(comment)">Edit</a> - <a href="javascript:void(0);"
-                    (click)="delete(comment)">Delete</a></small>
+        <p class="links" *ngIf="currentUser != null && (currentUser.userName === comment.userName || currentUser.userRole === adminRole)">
+            <small>
+                <a *ngIf="!currentUser.isMuted" href="javascript:void(0);" (click)="edit(comment)">Edit</a> - 
+                <a href="javascript:void(0);" (click)="delete(comment)">Delete</a>
+            </small>
         </p>
     </div>
 </div>

@@ -15,6 +15,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     private user: UserProfile;
     private currentUser: User;
     private unsubscriber = new Subject();
+    private adminRole = Roles.ADMIN;
 
     constructor(private router: Router, 
         private route: ActivatedRoute,

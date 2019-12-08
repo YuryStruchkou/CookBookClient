@@ -21,7 +21,7 @@ export class UserDetailsResolver implements Resolve<UserProfile> {
         const id = parseInt(route.paramMap.get('id'));
         return this.userProfileService.getUserProfile(id).pipe(flatMap(result => {
             let user = result as UserProfile;
-            if (route.data['update'] && this.currentUser.userName != user.userName) {
+            if (route.data['update'] && this.currentUser.userRole != Roles.ADMIN && this.currentUser.userName != user.userName) {
                 this.router.navigate(["/404"]);
                 return of(null);
             }

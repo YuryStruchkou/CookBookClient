@@ -16,6 +16,7 @@ export class RecipeMainComponent implements OnInit, OnDestroy {
     private recipe: Recipe;
     private currentUser: User;
     private unsubscriber = new Subject();
+    private adminRole = Roles.ADMIN;
 
     constructor(private recipeService: RecipeService,
         private authService: AuthService,

@@ -22,7 +22,7 @@ export class RecipeDetailResolver implements Resolve<Recipe> {
         const id = parseInt(route.paramMap.get('id'));
         return this.recipeService.getRecipe(id).pipe(flatMap(result => {
             const recipe = result as Recipe;
-            if (route.data['update'] && this.currentUser.userName == recipe.userName) {
+            if (route.data['update'] && (this.currentUser.userName == recipe.userName || this.currentUser.userRole == Roles.ADMIN)) {
                 return of(recipe);
             }
             if (!route.data['update']) {

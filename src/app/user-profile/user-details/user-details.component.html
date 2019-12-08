@@ -9,7 +9,7 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <a *ngIf="currentUser != null && currentUser.userName === user?.userName" [routerLink]="['update']"
+        <a *ngIf="currentUser != null && (currentUser.userName === user?.userName || currentUser.userRole === adminRole)" [routerLink]="['update']"
             class="btn btn-primary btn-lg my-3" role="button">
             Update
         </a>

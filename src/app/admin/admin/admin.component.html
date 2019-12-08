@@ -18,7 +18,7 @@
     <tbody *ngFor="let user of users; let i = index">
         <tr>
             <th scope="row">{{i + 1}}</th>
-            <td>{{user.userName}}</td>
+            <td><a [routerLink]="['/user', user.userId]">{{user.userName}}</a></td>
             <td>{{user.recipes.length}}</td>
             <td>{{user.userStatus}}</td>
             <td>{{user.isMuted ? "yes": "no"}}</td>
